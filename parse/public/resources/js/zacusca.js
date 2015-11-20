@@ -5,7 +5,6 @@ $(function() {
 	window.fbAsyncInit = function() {
 		Parse.FacebookUtils.init({
 			appId	: '1222086617807825',
-			status	: true,
 			cookie	: true,
 			xfbml	: true,
 			version	: 'v2.5'
@@ -38,6 +37,7 @@ $(function() {
 			},
 			error: function(user, error) {
 				Materialize.toast("Contul nu a putut fi creat", 5000);
+				console.log(error.message);
 			}
 		});
 	});
@@ -50,8 +50,9 @@ $(function() {
 			success: function(user) {
 				Materialize.toast("Autentificare reușită", 5000);
 			},
-			error: function(user) {
+			error: function(user,error) {
 				Materialize.toast("Autentificare eșuată", 5000);
+				console.log(error.message);
 			}
 		});
 	});
@@ -73,7 +74,14 @@ $(function() {
 			},
 			error: function(user, error) {
 				Materialize.toast("Conectarea cu Facebook nu a reușit", 5000);
+				console.log(error.message);
 			}
+		});
+	});
+
+	$("#has-account-button").click(function() {
+		$("#signup-form").slideToggle(300, "linear", function() {
+			$("#login-form").slideToggle(300, "linear");
 		});
 	});
 });

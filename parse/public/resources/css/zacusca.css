@@ -10,3 +10,6 @@
 	margin-top: 20px;
 }
 
+#login-form {
+	display: none;
+}

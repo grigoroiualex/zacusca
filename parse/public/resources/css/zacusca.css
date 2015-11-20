@@ -1,0 +1,12 @@
+.fb-icon {
+	background: url(/resources/img/facebook-box.png) no-repeat;
+	margin-top: 6px;
+	width: 24px;
+	height: 24px;
+}
+
+#signup-form,
+#login-form {
+	margin-top: 20px;
+}
+

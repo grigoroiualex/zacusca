@@ -2,36 +2,41 @@
 <html lang="ro">
 	<head>
 		<title>Zacusca</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 		<link href="/vendors/css/materialize.min.css" rel="stylesheet" media="screen">
+		<link href="/resources/css/zacusca.css" rel="stylesheet" media="screen">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<body>
 		<div class="container">
-			<div class="row">
+			<div class="row center">
 				<div class="col s4 offset-s4">
-					<h1><span class="flow-text">Zacusca</span></h1>
+					<h1>Zacusca</h1>
 				</div>
 			</div>
 
 			<div id="signup-form" class="container">
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<i class="material-icons prefix">account_circle</i>
 						<input placeholder="Prenume" id="first-name" class="validate" type="text">
 						<label for="first-name">Prenume</label>
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<input placeholder="Nume" id="last-name" class="validate" type="text">
 						<label for="last-name">Nume</label>
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<i class="material-icons prefix">email</i>
 						<input placeholder="Email" id="email" class="validate" type="email">
 						<label for="email" data-error="wrong" data-success="right">Email</label>
 					</div>
-					<div class="input-field col s6">
+					<div class="input-field col s12 m6">
 						<i class="material-icons prefix">phone</i>
 						<input placeholder="Telefon" id="telephone" class="validate" type="tel">
 						<label for="telephone" data-error="wrong" data-success="right">Telefon</label>
@@ -43,9 +48,27 @@
 						<label for="password">Parolă</label>
 					</div>
 				</div>
+				<div class="row center">
+					<div class="col s6 offset-s6 m4 offset-m8">
+						<button id="signup-button" class="btn waves-effect waves-light" type="button">Creează cont</button>
+					</div>
+				</div>
+			</div>
+
+			<div id="login-form" class="container">
 				<div class="row">
-					<div class="col s2">
-						<button id="create-account-button" class="btn waves-effect waves-light" type="button">Creează cont</button>
+					<div class="input-field col s12">
+						<input placeholder="Email" id="email" class="validate" type="email">
+						<label for="email" data-error="wrong" data-success="right">Email</label>
+					</div>
+					<div class="input-field col s12">
+						<input placeholder="Parola" id="password" class="validate" type="password">
+						<label for="password">Parolă</label>
+					</div>
+				</div>
+				<div class="row center">
+					<div class="col s6 offset-s3 m4 offset-m4">
+						<button id="login-button" class="btn waves-effect waves-light" type="button">Autentificare</button>
 					</div>
 				</div>
 			</div>

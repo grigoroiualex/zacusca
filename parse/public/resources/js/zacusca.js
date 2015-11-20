@@ -11,7 +11,6 @@ $(function() {
 		var password = $("#password").val();
 
 		Parse.User.signUp(username, password, {
-			ACL: new Parse.ACL(),
 			firstname: firstname,
 			lastname: lastname,
 			telephone: telephone

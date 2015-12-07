@@ -17,7 +17,7 @@ app.locals._ = _;
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
 app.get('/profilul-meu', function(req, res) {
-	res.render('profilul-meu', {
+	res.render('my-profile', {
 		title: titlePrefix + ' - Profilul meu',
 	});
 });

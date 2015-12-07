@@ -1,12 +1,12 @@
-		<script src="/vendors/js/jquery-2.1.4.min.js"></script>
-		<script src="/vendors/js/underscore-min.js"></script>
-		<script src="/vendors/js/materialize.min.js"></script>
-		<script src="/vendors/js/parse-1.6.7.min.js"></script>
-		<script src="/resources/js/init.js"></script>
-		<% if (!_.isEmpty(extraJSs)) { %>
-			<% extraJSs.forEach(function(extraJS) { %>
-				<script src="/resources/js/<%=  extraJS %>"></script>
-			<% }); %>
-		<% } %>
-	</body>
+	<script src="/vendors/js/jquery-2.1.4.min.js"></script>
+	<script src="/vendors/js/underscore-min.js"></script>
+	<script src="/vendors/js/materialize.min.js"></script>
+	<script src="/vendors/js/parse-1.6.7.min.js"></script>
+	<script src="/resources/js/init.js"></script>
+	<% if (!_.isEmpty(extraJSs)) { %>
+		<% extraJSs.forEach(function(extraJS) { %>
+			<script src="/resources/js/<%=  extraJS %>"></script>
+		<% }); %>
+	<% } %>
+</body>
 </html>

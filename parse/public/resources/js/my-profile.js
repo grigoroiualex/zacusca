@@ -1,5 +1,5 @@
 $(function() {
-	if (Parse.User.current()) {
+	if (!Parse.User.current()) {
 		window.location = '/';
 	}
 

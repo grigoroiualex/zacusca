@@ -20,3 +20,6 @@ $(function() {
 	}(document, 'script', 'facebook-jssdk'));
 });
 
+function navigateTo(location) {
+	window.location = '/' + location;
+}

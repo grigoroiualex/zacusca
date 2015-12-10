@@ -18,11 +18,11 @@ $(function() {
 			},
 			{
 			success: function(user) {
-				Materialize.toast('Cont creat cu succes', 5000);
-				setTimeout(function() { navigateTo('profilul-meu'); }, 5000);
+				Materialize.toast('Cont creat cu succes', 2000);
+				setTimeout(function() { navigateTo('profilul-meu'); }, 2000);
 			},
 			error: function(user, error) {
-				Materialize.toast('Contul nu a putut fi creat', 5000);
+				Materialize.toast('Contul nu a putut fi creat', 2000);
 				console.log(error.message);
 			}
 		});
@@ -34,11 +34,11 @@ $(function() {
 
 		Parse.User.logIn(username, password, {
 			success: function(user) {
-				Materialize.toast('Autentificare reușită', 5000);
-				setTimeout(function() { navigateTo('profilul-meu'); }, 5000);
+				Materialize.toast('Autentificare reușită', 2000);
+				setTimeout(function() { navigateTo('profilul-meu'); }, 2000);
 			},
 			error: function(user,error) {
-				Materialize.toast('Autentificare eșuată', 5000);
+				Materialize.toast('Autentificare eșuată', 2000);
 				console.log(error.message);
 			}
 		});
@@ -48,7 +48,7 @@ $(function() {
 		Parse.FacebookUtils.logIn('public_profile,email', {
 			success: function(user) {
 				if (!user.existed()) {
-					Materialize.toast('Cont creat prin Facebook cu succes', 5000);
+					Materialize.toast('Cont creat prin Facebook cu succes', 2000);
 
 					FB.api('/me', {fields: 'first_name,last_name,email'}, function(response) {
 						user.set('firstname', response.first_name);
@@ -56,21 +56,21 @@ $(function() {
 						user.set('email', response.email);
 						user.save(null, {
 							success: function(user) {
-								Materialize.toast('și date suplimentare salvate', 5000);
-								setTimeout(function() { navigateTo('profilul-meu'); }, 5000);
+								Materialize.toast('și date suplimentare salvate', 2000);
+								setTimeout(function() { navigateTo('profilul-meu'); }, 2000);
 							},
 							error: function(user, error) {
-								Materialize.toast('dar date suplimentare nesalvate', 5000);
+								Materialize.toast('dar date suplimentare nesalvate', 2000);
 							}
 						});
 					});
 				} else {
-					Materialize.toast('Logare cu Facebook reușită', 5000);
-					setTimeout(function() { navigateTo('profilul-meu'); }, 5000);
+					Materialize.toast('Logare cu Facebook reușită', 2000);
+					setTimeout(function() { navigateTo('profilul-meu'); }, 2000);
 				}
 			},
 			error: function(user, error) {
-				Materialize.toast('Conectarea cu Facebook nu a reușit', 5000);
+				Materialize.toast('Conectarea cu Facebook nu a reușit', 2000);
 				console.log(error.message);
 			}
 		});

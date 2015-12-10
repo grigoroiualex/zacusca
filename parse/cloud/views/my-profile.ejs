@@ -1,4 +1,128 @@
 <% include header %>
-	<div class="container">
+	<div id="page-wrapper">
+		<!--FIXED-->
+		<div class="navbar-fixed" id="navbar-wrapper">
+			<!-- Navigation -->
+			<nav class=" teal accent-4" id="navbar-top-wrapper">
+				<div class="nav-wrapper">
+					<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+					<span>Zacusca</span>
+
+					<!-- /.navbar-header -->
+
+					<ul class="right hide-on-med-and-down">
+						<li class="waves-effect">
+							<a class="" href="#">
+								<i class="material-icons">refresh</i>
+							</a>
+						</li>
+					</ul>
+					<ul class="side-nav fixed side-nav-under-top" id="side-menu">
+						<li class="nav-item-user-profile" >
+							<div id="user-info"></div>
+						</li>
+						<li class="bold aside-item center">
+							<span id="aside-my-packages" class="waves-effect waves-light">Pachetele mele</span>
+						</li>
+						<li class="bold aside-item center">
+							<span id="aside-my-transports" class="waves-effect waves-light">Transporturile mele</span>
+						</li>
+						<li class="bold aside-item center">
+							<span id="aside-want-to-send" class="waves-effect waves-light">Vreau să trimit</span>
+						</li>
+						<li class="bold aside-item center">
+							<span id="aside-want-to-transport" class="waves-effect waves-light">Vreau să transport</span>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 	</div>
+
+	<div id="content-wrapper" class="container">
+	</div>
+
+	<script type="text/template" id="user-info-template">
+	<div>Bun venit,</div>
+	<div>
+		<span>{{ rc.firstName + ' ' + rc.lastName }}</span>
+	</div>
+	</script>
+
+	<script type="text/template" id="package-page-content-template">
+	<div id="package-page-content" class="row">
+	</div>
+	</script>
+
+	<script type="text/template" id="package-item-template">
+	<div class="col s12 package-item">
+		<div class="card">
+			<div class="card-content">
+				<span class="card-title">{{ rc.pkg.name }}</span>
+				<div class="package-item-info collection">
+					<div class="package-item-source collection-item">
+						<div>
+							<span>Sursă:</span>
+							<span class="secondary-content">{{ rc.pkg.source }}</span>
+						</div>
+					</div>
+					<div class="package-item-destination collection-item">
+						<div>
+							<span>Destinație:</span>
+							<span class="secondary-content">{{ rc.pkg.destination }}</span>
+						</div>
+					</div>
+					<div class="package-item-day collection-item">
+						<div>
+							<span>Dată:</span>
+							<span class="secondary-content">{{ rc.pkg.date.getDay() + '.' + rc.pkg.date.getMonth() + '.' + rc.pkg.date.getYear() }}</span>
+						</div>
+					</div>
+				</div>
+				<div class="available-transports-wrapper">
+					<ul class="available-transports collapsible popout" data-collapsible="accordion">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</script>
+
+	<script type="text/template" id="package-item-available-transport-template">
+	<li>
+		<div class="collapsible-header">
+			{{ rc.transport.transporter }}
+		</div>
+		<div class="collapsible-body">
+			<div class="available-transport-wrapper">
+				<ul class="collection">
+					<li class="available-transport-email collection-item">
+						<div>
+							<span>Email:</span>
+							<span class="secondary-content">{{ rc.transport.email }}</span>
+						</div>
+					</li>
+					<li class="available-item-source collection-item">
+						<div>
+							<span>Sursă:</span>
+							<span class="secondary-content">{{ rc.transport.source }}</span>
+						</div>
+					</li>
+					<li class="available-item-source collection-item">
+						<div>
+							<span>Destinație:</span>
+							<span class="secondary-content">{{ rc.transport.destination }}</span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</li>
+	</script>
+
+	<script type="text/template" id="transport-page-content-template">
+	</script>
+
+	<script type="text/template" id="transport-item-template">
+	</script>
 <% include footer %>

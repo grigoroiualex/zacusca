@@ -31,49 +31,49 @@
 .navbar-top-search-bar,
 .navbar-side-search-bar,
 #navbar-top-wrapper{
-    height: 64px;
+	height: 64px;
 }
 
 .side-nav.side-nav-under-top{
-    top: 64px;
+	top: 64px;
 }
 
 ul.side-nav > li{
-    padding-left: 0;
-    padding-right: 0;
-    margin-bottom: 5px;
+	padding-left: 0;
+	padding-right: 0;
+	margin-bottom: 5px;
 }
 ul.side-nav > li.nav-item-user-profile{
-    padding-left: 33px;
-    padding-right: 33px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+	padding-left: 33px;
+	padding-right: 33px;
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
 nav .input-field label i.material-icons-black{
-    !important;
-    color:rgba(0, 0, 0, 0.87);
+	!important;
+	color:rgba(0, 0, 0, 0.87);
 }
 
 .brand-logo{
-    margin-left: 20px;
+	margin-left: 20px;
 }
 
-#wrapper{
-    padding-left: 240px;
+#content-wrapper{
+	padding-left: 240px;
 }
 
 .custom-progress{
-    margin: 0;
-    display: none;
-    z-index: 999;
+	margin: 0;
+	display: none;
+	z-index: 999;
 }
 .custom-progress-top{
-    position: absolute;
-    top: 0;
+	position: absolute;
+	top: 0;
 }
 
 .nav-item-user-profile{
-    background-image: url("/resources/img/default-user-back.jpg");
+	background-image: url("/resources/img/default-user-back.jpg");
 }
 
 #user-info {
@@ -86,9 +86,30 @@ nav .input-field label i.material-icons-black{
 	width: 100%;
 }
 
+.preloader-wrapper.huge {
+	width: 200px;
+	height: 200px;
+}
+
+#loading-circle {
+	padding-top: 50px;
+}
+
+#loading-circle-template {
+	display: none;
+}
+
+.page-tools {
+	margin: 0 10px;
+}
+
+.aside-active {
+	background-color: #009688;
+}
+
 @media only screen and (max-width : 992px) {
-    #wrapper{
-        padding-left: 0px;
-    }
+	#content-wrapper{
+		padding-left: 0px;
+	}
 }
 

@@ -11,10 +11,15 @@
 					<!-- /.navbar-header -->
 
 					<ul class="right hide-on-med-and-down">
-						<li class="waves-effect">
-							<a class="" href="#">
+						<li class="waves-effect page-tools">
+							<span id="refresh-content-button">
 								<i class="material-icons">refresh</i>
-							</a>
+							</span>
+						</li>
+						<li class="waves-effect page-tools">
+							<span id="logout-button">
+								<i class="material-icons">power_settings_new</i>
+							</span>
 						</li>
 					</ul>
 					<ul class="side-nav fixed side-nav-under-top" id="side-menu">
@@ -31,7 +36,7 @@
 							<span id="aside-want-to-send" class="waves-effect waves-light">Vreau să trimit</span>
 						</li>
 						<li class="bold aside-item center">
-							<span id="aside-want-to-transport" class="waves-effect waves-light">Vreau să transport</span>
+							<span id="aside-want-to-transport" class="waves-effect waves-light">Pot să transport</span>
 						</li>
 					</ul>
 				</div>
@@ -40,6 +45,55 @@
 	</div>
 
 	<div id="content-wrapper" class="container">
+	</div>
+
+	<div id="loading-circle-template" class="center">
+		<div class="preloader-wrapper huge active">
+			<div class="spinner-layer spinner-blue">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+			</div>
+			<div class="spinner-layer spinner-red">
+				<div class="circle-clipper left">
+				<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+			<div class="spinner-layer spinner-yellow">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+			<div class="spinner-layer spinner-green">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div>
+				<div class="gap-patch">
+					<div class="circle"></div>
+				</div>
+				<div class="circle-clipper right">
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/template" id="user-info-template">
@@ -58,24 +112,24 @@
 	<div class="col s12 package-item">
 		<div class="card">
 			<div class="card-content">
-				<span class="card-title">{{ rc.pkg.name }}</span>
+				<span class="card-title">{{ rc.name }}</span>
 				<div class="package-item-info collection">
 					<div class="package-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content">{{ rc.pkg.source }}</span>
+							<span class="secondary-content">{{ rc.source }}</span>
 						</div>
 					</div>
 					<div class="package-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content">{{ rc.pkg.destination }}</span>
+							<span class="secondary-content">{{ rc.destination }}</span>
 						</div>
 					</div>
 					<div class="package-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content">{{ rc.pkg.date.getDay() + '.' + rc.pkg.date.getMonth() + '.' + rc.pkg.date.getYear() }}</span>
+							<span class="secondary-content">{{ rc.date.getDay() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
 						</div>
 					</div>
 				</div>
@@ -91,7 +145,7 @@
 	<script type="text/template" id="package-item-available-transport-template">
 	<li>
 		<div class="collapsible-header">
-			{{ rc.transport.transporter }}
+			{{ rc.transporter }}
 		</div>
 		<div class="collapsible-body">
 			<div class="available-transport-wrapper">
@@ -99,19 +153,19 @@
 					<li class="available-transport-email collection-item">
 						<div>
 							<span>Email:</span>
-							<span class="secondary-content">{{ rc.transport.email }}</span>
+							<span class="secondary-content">{{ rc.email }}</span>
 						</div>
 					</li>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content">{{ rc.transport.source }}</span>
+							<span class="secondary-content">{{ rc.source }}</span>
 						</div>
 					</li>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content">{{ rc.transport.destination }}</span>
+							<span class="secondary-content">{{ rc.destination }}</span>
 						</div>
 					</li>
 				</ul>
@@ -121,8 +175,46 @@
 	</script>
 
 	<script type="text/template" id="transport-page-content-template">
+	<div id="transport-page-content" class="row">
+	</div>
 	</script>
 
 	<script type="text/template" id="transport-item-template">
+	<div class="col s12 transport-item">
+		<div class="card">
+			<div class="card-content">
+				<div class="transport-item-info collection">
+					<div class="transport-item-source collection-item">
+						<div>
+							<span>Sursă:</span>
+							<span class="secondary-content">{{ rc.source }}</span>
+						</div>
+					</div>
+					<div class="transport-item-destination collection-item">
+						<div>
+							<span>Destinație:</span>
+							<span class="secondary-content">{{ rc.destination }}</span>
+						</div>
+					</div>
+					<div class="transport-item-day collection-item">
+						<div>
+							<span>Dată:</span>
+							<span class="secondary-content">{{ rc.date.getDay() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
+						</div>
+					</div>
+					<div class="transport-item-available-slots collection-item">
+						<div>
+							<span>Mai pot lua:</span>
+							<span class="secondary-content">{{ (rc.availableSlots == 1) ? (rc.availableSlots + ' pachet') : (rc.availableSlots + ' pachete') }}</span>
+						</div>
+					</div>
+				</div>
+				<div class="packages-on-board-wrapper">
+					<ul class="packages-on-board collapsible popout" data-collapsible="accordion">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 	</script>
 <% include footer %>

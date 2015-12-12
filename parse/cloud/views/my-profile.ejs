@@ -129,7 +129,7 @@
 					<div class="package-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content">{{ rc.date.getDay() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
+							<span class="secondary-content">{{ rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
 						</div>
 					</div>
 				</div>
@@ -145,7 +145,7 @@
 	<script type="text/template" id="package-item-available-transport-template">
 	<li>
 		<div class="collapsible-header">
-			{{ rc.transporter }}
+			{{ rc.username }}
 		</div>
 		<div class="collapsible-body">
 			<div class="available-transport-wrapper">
@@ -199,7 +199,7 @@
 					<div class="transport-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content">{{ rc.date.getDay() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
+							<span class="secondary-content">{{ rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
 						</div>
 					</div>
 					<div class="transport-item-available-slots collection-item">

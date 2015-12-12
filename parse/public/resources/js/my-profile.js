@@ -5,7 +5,6 @@ $(function() {
 	}
 
 	$('.button-collapse').sideNav();
-	$('.collapsible').collapsible();
 
 	_.templateSettings = {
 		interpolate : /\{\{(.+?)\}\}/g,
@@ -50,6 +49,7 @@ $(function() {
 });
 
 function renderMyPackages(user) {
+	console.log(user);
 	addLoadingCircleTo($('#content-wrapper'));
 	var packagePageContentTemplate = _.template(
 		$('#package-page-content-template').html()
@@ -63,28 +63,76 @@ function renderMyPackages(user) {
 		$('#package-item-template').html()
 	);
 
-	var packageObj = Parse.Object.extend("Package");
-	var query = new Parse.Query(packageObj);
+	var packageItemAvailableTransportTemplate = _.template(
+		$('#package-item-available-transport-template').html()
+	);
 
-	query.equalTo("user", user);
-	query.find({
-		success: function(results) {
-			removeLoadingCircleFrom($('#content-wrapper'));
-			for (var i = 0; i < results.length; i++) {
-				$('#package-page-content').append(
-					packageItemTemplate({
-						name:		results[i].get('name'),
-						source:		results[i].get('source'),
-						destination:	results[i].get('destination'),
-						date:		results[i].get('date')
-					})
-				);
-			}
-		},
-		error: function(error) {
-			console.log('Error: ' + error.code + ' ' + error.message);
-		}
+	var packageObj = Parse.Object.extend('Package');
+	var query = new Parse.Query(packageObj);
+	var test = [];
+
+	query.equalTo('user', user);
+	console.log("ceva");
+	console.log(query);
+	query.find().then(function(results) {
+
+		var promise = Parse.Promise.as();
+		_.each(results, function(result) {
+			$('#package-page-content').append(
+				packageItemTemplate({
+					name:		result.get('name'),
+					source:		result.get('source'),
+					destination:	result.get('destination'),
+					date:		result.get('date')
+				})
+			);
+
+			promise = promise.then(function() {
+				var transportObj = Parse.Object.extend('Transport');
+				var q = new Parse.Query(transportObj);
+
+				q.equalTo('source', result.get('source'));
+				q.equalTo('destination', result.get('destination'));
+
+				q.find().then(function(results) {
+					_.each(results, function(result) {
+						var q1 = new Parse.Query(Parse.User);
+						var username, email;
+
+						console.log((result.get('user')).id);
+						query.get((result.get('user')).id, {
+							success: function(transportUser) {
+								username = user.get('firstname') + ' ' + user.get('lastname');
+								email = user.getEmail();
+							},
+							error: function(error) {
+								console.log('Error: ' + error.code + ' ' + error.message);
+							}
+						});
+
+						var bro = $('.available-transports');
+						$(bro[bro.length - 1]).append(
+							packageItemAvailableTransportTemplate({
+								username:	username,
+								email:		email,
+								source:		result.get('source'),
+								destination:	result.get('destination')
+							})
+						);
+						test.push(result.get('source'));
+						$('.collapsible').collapsible();
+					});
+				});
+				removeLoadingCircleFrom($('#content-wrapper'));
+			});
+		});
+
+		console.log(test);
+		return promise;
+	}, function(error) {
+		console.log('Error: ' + error.code + ' ' + error.message);
 	});
+	
 }
 
 function renderMyTransports(user) {
@@ -107,17 +155,18 @@ function renderMyTransports(user) {
 	query.equalTo("user", user);
 	query.find({
 		success: function(results) {
-			removeLoadingCircleFrom($('#content-wrapper'));
-			for (var i = 0; i < results.length; i++) {
+			_.each(results, function(result) {
 				$('#transport-page-content').append(
 					transportItemTemplate({
-						source:		results[i].get('source'),
-						destination:	results[i].get('destination'),
-						date:		results[i].get('date'),
-						availableSlots:	results[i].get('slots_available')
+						source:		result.get('source'),
+						destination:	result.get('destination'),
+						date:		result.get('date'),
+						availableSlots:	result.get('slots_available')
 					})
 				);
-			}
+			});
+
+			removeLoadingCircleFrom($('#content-wrapper'));
 		},
 		error: function(error) {
 			console.log('Error: ' + error.code + ' ' + error.message);

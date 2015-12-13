@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/my_packs" android:icon="@android:drawable/ic_menu_camera"
+            android:title="Pachetele mele" />
+        <item android:id="@+id/my_transports" android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Transporturile mele" />
+        <item android:id="@+id/send_pack" android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="Vreau să trimit" />
+        <item android:id="@+id/transport_pack" android:icon="@android:drawable/ic_menu_manage"
+            android:title="Pot să transport" />
+    </group>
+
+</menu>

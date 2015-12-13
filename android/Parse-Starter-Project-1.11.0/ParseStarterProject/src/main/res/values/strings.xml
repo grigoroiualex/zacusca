@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2015-present, Parse, LLC.
+  ~ All rights reserved.
+  ~
+  ~ This source code is licensed under the BSD-style license found in the
+  ~ LICENSE file in the root directory of this source tree. An additional grant
+  ~ of patent rights can be found in the PATENTS file in the same directory.
+  -->
+<resources>
+    <string name="parse_app_id">FkO54N3n6vn3gKijXwDlju0lZBaAjMXnqpvApCYF</string>
+    <string name="parse_client_key">rHbwECInReC3DL6Xd4qfKW6e1gbhPQjlbbAWjFSp</string>
+
+    <string name="app_name">Parse Starter Project</string>
+
+    <string name="hello_world">Hello World!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

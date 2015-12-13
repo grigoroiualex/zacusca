@@ -35,8 +35,6 @@ app.get('/', function(req, res) {
 
 // Cloud code functions
 Parse.Cloud.define('getPackages', function(request, response) {
-	var results = [];
-
 	var pkgsQuery = new Parse.Query('Package');
 	pkgsQuery.equalTo('user', request.user);
 
@@ -46,71 +44,90 @@ Parse.Cloud.define('getPackages', function(request, response) {
 
 		_.each(pkgs, function(pkg) {
 			packages.push({
+				objectId:	pkg.id,
 				name: 		pkg.get('name'),
 				source:		pkg.get('source'),
 				destination:	pkg.get('destination'),
-				date:		pkg.get('date'),
-				transports:	[]
+				date:		pkg.get('date')
 			});
 		});
 
 		return packages;
 	})
-	.then(function(pkgs) {
-		var promise = Parse.Promise.as();
-		_.each(pkgs, function(pkg) {
-			var pkgDate = new moment(pkg.date);
-			var transportQuery = new Parse.Query('Transport');
-
-			transportQuery.equalTo('source', pkg.source);
-			transportQuery.equalTo('destination', pkg.destination);
-			transportQuery.greaterThan('date', pkgDate.startOf('day').toDate());
-			transportQuery.lessThan('date', pkgDate.endOf('day').toDate());
-
-			promise = promise.then(function() {
-				return transportQuery.find().then(function(transports) {
-					var trans = [];
-					_.each(transports, function(transport) {
-						trans.push({
-							transportId:	transport.get('objectId'),
-							source:		transport.get('source'),
-							destination:	transport.get('destination'),
-							userFullname:	'',
-							userEmail:	''
-						});
-					});
-
-					return trans;
-				})
-				.then(function(transports) {
-					// TODO cauta utilizatorii
-
-					pkg.transports = transports;
-					results.push(pkg);
-				});
-			});
-		});
-
-		return promise;
-	}).then(function() {
-		response.success(results);
+	.then(function(packages) {
+		response.success(packages);
 	});
 });
 
-					/*
-							var userQuery = new Parse.Query(Parse.User);
+// Sets user info for given transport and returns the transport
+// as a resolved promise
+function setUserInfoForTransport(user, transport) {
+	var promise = new Parse.Promise();
+	var userQuery = new Parse.Query(Parse.User);
 
-							query.get((transport.get('user')).id, {
-								success: function(transportUser) {
-									trans.userFullname = user.get('firstname') + ' ' + user.get('lastname');
-									trans.userEmail = user.get('email');
-								},
-								error: function(error) {
-									console.log('Error: ' + error.code + ' ' + error.message);
-								}
-							});
-					*/
+	userQuery.get(user.id, {
+		success: function(user) {
+			transport.userFullname = user.get('firstname') + ' ' + user.get('lastname');
+			transport.userEmail = user.get('email');
+			transport.userTelephone = user.get('telephone');
 
+			promise.resolve(transport);
+		},
+		error: function(error) {
+			promise.reject(error);
+		}
+	});
+
+	return promise;
+}
+
+Parse.Cloud.define('getAvailableTransportsForPackage', function(request, response) {
+	var packageQuery = new Parse.Query('Package');
+
+	packageQuery.equalTo('objectId', request.params.pkg.objectId);
+	packageQuery.first()
+	.then(function(pkg) {
+		var results = [];
+		var pkgDate = new moment(pkg.get('date'));
+		var transportQuery = new Parse.Query('Transport');
+
+		transportQuery.equalTo('source', pkg.get('source'));
+		transportQuery.equalTo('destination', pkg.get('destination'));
+		transportQuery.greaterThan('date', pkgDate.startOf('day').toDate());
+		transportQuery.lessThan('date', pkgDate.endOf('day').toDate());
+
+		return transportQuery.find()
+		.then(function(transports) {
+			var trans;
+			var promises = [];
+
+			_.each(transports, function(transport) {
+				trans = {
+					objectId:	transport.id,
+					source:		transport.get('source'),
+					destination:	transport.get('destination'),
+					userFullname:	'',
+					userEmail:	'',
+					userTelephone:	''
+				};
+
+				promises.push(
+					setUserInfoForTransport(transport.get('user'), trans)
+					.then(function(updatedTransport) {
+						results.push(updatedTransport);
+					})
+				);
+			});
+
+			return Parse.Promise.when(promises);
+		})
+		.then(function() {
+			response.success(results);
+		});
+	}, function(error) {
+		response.error('There was an error querying');
+	});
+});
 
 // Attach the Express app to Cloud Code.
 app.listen();

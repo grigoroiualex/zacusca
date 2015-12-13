@@ -49,8 +49,6 @@ $(function() {
 });
 
 function renderMyPackages(user) {
-	console.log(user);
-	addLoadingCircleTo($('#content-wrapper'));
 	var packagePageContentTemplate = _.template(
 		$('#package-page-content-template').html()
 	);
@@ -67,72 +65,40 @@ function renderMyPackages(user) {
 		$('#package-item-available-transport-template').html()
 	);
 
-	var packageObj = Parse.Object.extend('Package');
-	var query = new Parse.Query(packageObj);
-	var test = [];
+	Parse.Cloud.run('getPackages', {}, {
+		success: function(pkgs) {
+			_.each(pkgs, function(pkg) {
+				$('#package-page-content').append(
+					packageItemTemplate(pkg)
+				);
 
-	query.equalTo('user', user);
-	console.log("ceva");
-	console.log(query);
-	query.find().then(function(results) {
-
-		var promise = Parse.Promise.as();
-		_.each(results, function(result) {
-			$('#package-page-content').append(
-				packageItemTemplate({
-					name:		result.get('name'),
-					source:		result.get('source'),
-					destination:	result.get('destination'),
-					date:		result.get('date')
-				})
-			);
-
-			promise = promise.then(function() {
-				var transportObj = Parse.Object.extend('Transport');
-				var q = new Parse.Query(transportObj);
-
-				q.equalTo('source', result.get('source'));
-				q.equalTo('destination', result.get('destination'));
-
-				q.find().then(function(results) {
-					_.each(results, function(result) {
-						var q1 = new Parse.Query(Parse.User);
-						var username, email;
-
-						console.log((result.get('user')).id);
-						query.get((result.get('user')).id, {
-							success: function(transportUser) {
-								username = user.get('firstname') + ' ' + user.get('lastname');
-								email = user.getEmail();
-							},
-							error: function(error) {
-								console.log('Error: ' + error.code + ' ' + error.message);
-							}
+				Parse.Cloud.run('getAvailableTransportsForPackage', { pkg: pkg }, {
+					success: function(transports) {
+						_.each(transports, function(transport) {
+							$('#available-transports-for-' + pkg.objectId).append(
+								packageItemAvailableTransportTemplate({
+									username:	transport.userFullname,
+									email:		transport.userEmail,
+									source:		transport.source,
+									destination:	transport.destination,
+									telephone:	transport.userTelephone
+								})
+							);
 						});
 
-						var bro = $('.available-transports');
-						$(bro[bro.length - 1]).append(
-							packageItemAvailableTransportTemplate({
-								username:	username,
-								email:		email,
-								source:		result.get('source'),
-								destination:	result.get('destination')
-							})
-						);
-						test.push(result.get('source'));
 						$('.collapsible').collapsible();
-					});
+					},
+					error: function(error) {
+						console.log('Error retrieving available transports for package ' + pkg);
+					}
 				});
-				removeLoadingCircleFrom($('#content-wrapper'));
 			});
-		});
-
-		console.log(test);
-		return promise;
-	}, function(error) {
-		console.log('Error: ' + error.code + ' ' + error.message);
+		},
+		error: function(error) {
+			console.log('Error retrieving packages');
+		}
 	});
-	
+
 }
 
 function renderMyTransports(user) {
@@ -165,22 +131,11 @@ function renderMyTransports(user) {
 					})
 				);
 			});
-
-			removeLoadingCircleFrom($('#content-wrapper'));
 		},
 		error: function(error) {
 			console.log('Error: ' + error.code + ' ' + error.message);
 		}
 	});
-}
-
-// Adds loading circle to element given as jQuery object
-function addLoadingCircleTo(element) {
-	$('#loading-circle-template').clone().attr('id', 'loading-circle').appendTo(element);
-}
-
-function removeLoadingCircleFrom() {
-	$('#loading-circle').remove();
 }
 
 function makeAsideSelection(asideOption) {

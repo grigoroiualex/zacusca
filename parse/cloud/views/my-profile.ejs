@@ -134,7 +134,8 @@
 					</div>
 				</div>
 				<div class="available-transports-wrapper">
-					<ul class="available-transports collapsible popout" data-collapsible="accordion">
+					<span>Transporturi disponibile:</span>
+					<ul id="available-transports-for-{{ rc.objectId }}" class="collapsible popout" data-collapsible="accordion">
 					</ul>
 				</div>
 			</div>
@@ -143,7 +144,7 @@
 	</script>
 
 	<script type="text/template" id="package-item-available-transport-template">
-	<li>
+	<li class="package-item-available-transport-item">
 		<div class="collapsible-header">
 			{{ rc.username }}
 		</div>
@@ -156,6 +157,12 @@
 							<span class="secondary-content">{{ rc.email }}</span>
 						</div>
 					</li>
+					<li class="available-transport-telephone collection-item">
+						<div>
+							<span>Telefon:</span>
+							<span class="secondary-content">{{ rc.telephone }}</span>
+						</div>
+					</li>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
@@ -166,6 +173,13 @@
 						<div>
 							<span>Destinație:</span>
 							<span class="secondary-content">{{ rc.destination }}</span>
+						</div>
+					</li>
+					<li class="available-item-source collection-item center">
+						<div>
+							<button data-transport-to-join="{{ rc.objectId }}" class="join btn waves-effect waves-light" type="button">
+								Join
+							</button>
 						</div>
 					</li>
 				</ul>

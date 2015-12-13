@@ -13,3 +13,103 @@
 #login-form {
 	display: none;
 }
+
+.nav-wrapper {
+	position: relative;
+	height: 100%;
+}
+
+#logo-name {
+	margin-left: 20px;
+}
+
+#options ul li button {
+	width: 100%;
+	margin: 10px 5px;
+}
+
+.navbar-top-search-bar,
+.navbar-side-search-bar,
+#navbar-top-wrapper{
+	height: 64px;
+}
+
+.side-nav.side-nav-under-top{
+	top: 64px;
+}
+
+ul.side-nav > li{
+	padding-left: 0;
+	padding-right: 0;
+	margin-bottom: 5px;
+}
+ul.side-nav > li.nav-item-user-profile{
+	padding-left: 33px;
+	padding-right: 33px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+nav .input-field label i.material-icons-black{
+	!important;
+	color:rgba(0, 0, 0, 0.87);
+}
+
+.brand-logo{
+	margin-left: 20px;
+}
+
+#content-wrapper{
+	padding-left: 240px;
+}
+
+.custom-progress{
+	margin: 0;
+	display: none;
+	z-index: 999;
+}
+.custom-progress-top{
+	position: absolute;
+	top: 0;
+}
+
+.nav-item-user-profile{
+	background-image: url("/resources/img/default-user-back.jpg");
+}
+
+#user-info {
+	line-height: 30px;
+	font-size: large;
+}
+
+.aside-item span {
+	color: black;
+	width: 100%;
+}
+
+.preloader-wrapper.huge {
+	width: 200px;
+	height: 200px;
+}
+
+#loading-circle {
+	padding-top: 50px;
+}
+
+#loading-circle-template {
+	display: none;
+}
+
+.page-tools {
+	margin: 0 10px;
+}
+
+.aside-active {
+	background-color: #009688;
+}
+
+@media only screen and (max-width : 992px) {
+	#content-wrapper{
+		padding-left: 0px;
+	}
+}
+

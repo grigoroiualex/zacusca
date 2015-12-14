@@ -53,9 +53,38 @@ Parse.Cloud.define('getPackages', function(request, response) {
 		});
 
 		return packages;
+	}, function(error) {
+		resolve.error('Could not query packages')
 	})
 	.then(function(packages) {
 		response.success(packages);
+	});
+});
+
+Parse.Cloud.define('getTransports', function(request, response) {
+	var transQuery = new Parse.Query('Transport');
+	transQuery.equalTo('user', request.user);
+
+	transQuery.find()
+	.then(function(trans) {
+		var transports = [];
+
+		_.each(trans, function(tran) {
+			transports.push({
+				objectId:	tran.id,
+				source:		tran.get('source'),
+				destination:	tran.get('destination'),
+				date:		tran.get('date'),
+				slotsAvailable:	tran.get('slots_available')
+			});
+		});
+
+		return transports;
+	}, function(error) {
+		resolve.error('Could not query transports')
+	})
+	.then(function(transports) {
+		response.success(transports);
 	});
 });
 

@@ -90,19 +90,20 @@ function renderMyPackages(user) {
 					},
 					error: function(error) {
 						console.log('Error retrieving available transports for package ' + pkg);
+						console.log('Additional error info: ' + error.code + ' ' + error.message);
 					}
 				});
 			});
 		},
 		error: function(error) {
 			console.log('Error retrieving packages');
+			console.log('Additional error info: ' + error.code + ' ' + error.message);
 		}
 	});
 
 }
 
 function renderMyTransports(user) {
-	addLoadingCircleTo($('#content-wrapper'));
 	var transportPageContentTemplate = _.template(
 		$('#transport-page-content-template').html()
 	);
@@ -115,25 +116,22 @@ function renderMyTransports(user) {
 		$('#transport-item-template').html()
 	);
 
-	var transportObj = Parse.Object.extend("Transport");
-	var query = new Parse.Query(transportObj);
-
-	query.equalTo("user", user);
-	query.find({
-		success: function(results) {
-			_.each(results, function(result) {
+	Parse.Cloud.run('getTransports', {}, {
+		success: function(transports) {
+			_.each(transports, function(transport) {
 				$('#transport-page-content').append(
 					transportItemTemplate({
-						source:		result.get('source'),
-						destination:	result.get('destination'),
-						date:		result.get('date'),
-						availableSlots:	result.get('slots_available')
+						source:		transport.source,
+						destination:	transport.destination,
+						date:		transport.date,
+						slotsAvailable:	transport.slotsAvailable
 					})
 				);
 			});
 		},
 		error: function(error) {
 			console.log('Error: ' + error.code + ' ' + error.message);
+			console.log('Additional error info: ' + error.code + ' ' + error.message);
 		}
 	});
 }

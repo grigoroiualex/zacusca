@@ -120,6 +120,7 @@ Parse.Cloud.define('getAvailableTransportsForPackage', function(request, respons
 		var pkgDate = new moment(pkg.get('date'));
 		var transportQuery = new Parse.Query('Transport');
 
+		transportQuery.notEqualTo('user', request.user.id);
 		transportQuery.equalTo('source', pkg.get('source'));
 		transportQuery.equalTo('destination', pkg.get('destination'));
 		transportQuery.greaterThan('date', pkgDate.startOf('day').toDate());

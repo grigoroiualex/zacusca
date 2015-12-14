@@ -107,6 +107,10 @@ nav .input-field label i.material-icons-black{
 	background-color: #009688;
 }
 
+.package-on-board-accepted {
+	width: 30px;
+}
+
 @media only screen and (max-width : 992px) {
 	#content-wrapper{
 		padding-left: 0px;

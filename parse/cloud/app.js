@@ -155,9 +155,12 @@ Parse.Cloud.define('getAvailableTransportsForPackage', function(request, respons
 			response.success(results);
 		});
 	}, function(error) {
-		response.error('There was an error querying');
+		response.error('There was an error querying for available transports');
 	});
 });
+
+Parse.Cloud.define('getPackagedOnBoardForTransport', function(request, response) {
+
 
 // Attach the Express app to Cloud Code.
 app.listen();

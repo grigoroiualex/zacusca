@@ -220,5 +220,93 @@ Parse.Cloud.define('getPackagesOnBoardForTransport', function(request, response)
 	});
 });
 
+// Changes the state of the package with the given pkgId to the
+// state given as param. If everything went well returns a
+// solved promise, otherwise a rejected promise with the error
+function changePackageState(pkgId, state) {
+	var promise = new Parse.Promise();
+	var pkgQuery = new Parse.Query('Package');
+
+	pkgQuery.get(pkgId, {
+		success: function(pkg) {
+			pkg.set('state', state);
+			pkg.save();
+			promise.resolve();
+		},
+		error: function(object, error) {
+			promise.reject(error);
+		}
+	});
+
+	return promise;
+}
+
+function addPackageToPendingList(pkgId, transportId) {
+	var promise = new Parse.Promise();
+	var pkgQuery = new Parse.Query('Package');
+
+	pkgQuery.get(pkgId, {
+		success: function(pkg) {
+			promise.resolve(pkg);
+		},
+		error: function(error) {
+			promise.reject(error);
+		}
+	});
+
+	return promise.then(function(pkg) {
+		var transQuery = new Parse.Query('Transport');
+
+		return transQuery.get(transportId, {
+			success: function(trans) {
+				var t = trans.relation('pending_packages');
+				t.add(pkg);
+				return trans.save();
+			},
+			error: function(error) {
+				return Parse.Promise.error(error);
+			}
+		});
+	});
+}
+
+Parse.Cloud.define('requestJoin', function(request, response) {
+	changePackageState(request.params.pkg.objectId, 'pending')
+	.then(function() {
+		return addPackageToPendingList(request.params.pkg.objectId, request.params.transport.objectId);
+	}, function(error) {
+		response.error('Could not join package to transport. ' + error);
+	})
+	.then(function() {
+		response.success('success');
+	});
+});
+
+function movePackageToAcceptedList(pkgId, transportId) {
+	var promise = new Parse.Promise();
+	var pkgQuery = new Parse.Query('Package');
+
+	pkgQuery.get(pkgId, {
+		success: function(pkg) {
+
+		},
+		error: function(error) {
+
+		}
+	});
+}
+
+Parse.Cloud.define('acceptJoin', function(request, response) {
+	changePackageState(request.params.pkg.objectId, 'accepted')
+	.then(function() {
+		return movePackageToAcceptedList(request.params.pkg.objectId, request.params.transport.objectId);
+	}, function(error) {
+		response.error('Could not accept package. ' + error);
+	})
+	.then(function() {
+		response.success('success');
+	});
+});
+
 // Attach the Express app to Cloud Code.
 app.listen();

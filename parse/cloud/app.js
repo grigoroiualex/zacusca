@@ -283,16 +283,34 @@ Parse.Cloud.define('requestJoin', function(request, response) {
 });
 
 function movePackageToAcceptedList(pkgId, transportId) {
-	var promise = new Parse.Promise();
-	var pkgQuery = new Parse.Query('Package');
+	var promise = new Parse.Promise.as();
 
 	pkgQuery.get(pkgId, {
 		success: function(pkg) {
-
+			promise.resolve(pkg);
 		},
 		error: function(error) {
-
+			promise.reject(error);
 		}
+	});
+
+	return promise.then(function(pkg) {
+		var transQuery = new Parse.Query('Transport');
+
+		return transQuery.get(transportId, {
+			success: function(trans) {
+				var t1 = trans.relation('pending_packages');
+				var t2 = trans.relation('accepted_packages');
+
+				t1.remove(pkg);
+				t2.add(pkg);
+
+				return trans.save();
+			},
+			error: function(error) {
+				return Parse.Promise.error(error);
+			}
+		});
 	});
 }
 

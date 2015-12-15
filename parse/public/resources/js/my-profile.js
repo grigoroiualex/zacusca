@@ -7,8 +7,10 @@ $(function() {
 	$('.button-collapse').sideNav();
 
 	_.templateSettings = {
-		interpolate : /\{\{(.+?)\}\}/g,
-		variable: "rc"
+		interpolate:	/\<\@\=(.+?)\@\>/gim,
+		evaluate:	/\<\@(.+?)\@\>/gim,
+		escpe:		/\<\@\-(.+?)\@\>/gim,
+		variable:	"rc"
 	};
 
 	var currentUser = Parse.User.current();

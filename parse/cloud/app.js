@@ -256,11 +256,11 @@ function addPackageToPendingList(pkgId, transportId) {
 
 	return promise.then(function(pkg) {
 		var transQuery = new Parse.Query('Transport');
+		transQuery.include('pending_packages');
 
 		return transQuery.get(transportId, {
 			success: function(trans) {
-				var t = trans.relation('pending_packages');
-				t.add(pkg);
+				trans.addUnique('pending_packages', pkg.id);
 				return trans.save();
 			},
 			error: function(error) {
@@ -283,7 +283,8 @@ Parse.Cloud.define('requestJoin', function(request, response) {
 });
 
 function movePackageToAcceptedList(pkgId, transportId) {
-	var promise = new Parse.Promise.as();
+	var promise = new Parse.Promise;
+	var pkgQuery = new Parse.Query('Package');
 
 	pkgQuery.get(pkgId, {
 		success: function(pkg) {
@@ -299,11 +300,8 @@ function movePackageToAcceptedList(pkgId, transportId) {
 
 		return transQuery.get(transportId, {
 			success: function(trans) {
-				var t1 = trans.relation('pending_packages');
-				var t2 = trans.relation('accepted_packages');
-
-				t1.remove(pkg);
-				t2.add(pkg);
+				trans.remove('pending_packages', pkg.id);
+				trans.addUnique('accepted_packages', pkg.id);
 
 				return trans.save();
 			},

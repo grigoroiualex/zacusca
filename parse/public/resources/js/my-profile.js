@@ -69,31 +69,44 @@ function renderMyPackages(user) {
 
 	Parse.Cloud.run('getPackages', {}, {
 		success: function(pkgs) {
+			var promises = [];
+
 			_.each(pkgs, function(pkg) {
 				$('#package-page-content').append(
 					packageItemTemplate(pkg)
 				);
 
-				Parse.Cloud.run('getAvailableTransportsForPackage', { pkg: pkg }, {
-					success: function(transports) {
-						_.each(transports, function(transport) {
-							$('#available-transports-for-' + pkg.objectId).append(
-								packageItemAvailableTransportTemplate({
-									username:	transport.userFullname,
-									email:		transport.userEmail,
-									source:		transport.source,
-									destination:	transport.destination,
-									telephone:	transport.userTelephone
-								})
-							);
-						});
+				promises.push(
+					Parse.Cloud.run('getAvailableTransportsForPackage', { pkg: pkg }, {
+						success: function(transports) {
+							_.each(transports, function(transport) {
+								$('#available-transports-for-' + pkg.objectId).append(
+									packageItemAvailableTransportTemplate({
+										packageId:	pkg.objectId,
+										transportId:	transport.objectId,
+										username:	transport.userFullname,
+										email:		transport.userEmail,
+										source:		transport.source,
+										destination:	transport.destination,
+										telephone:	transport.userTelephone
+									})
+								);
 
-						$('.collapsible').collapsible();
-					},
-					error: function(error) {
-						console.log('Error retrieving available transports for package ' + pkg);
-						console.log('Additional error info: ' + error.code + ' ' + error.message);
-					}
+							});
+
+						},
+						error: function(error) {
+							console.log('Error retrieving available transports for package ' + pkg);
+							console.log('Additional error info: ' + error.code + ' ' + error.message);
+						}
+					})
+				);
+			});
+
+			Parse.Promise.when(promises).then(function() {
+				$('.collapsible').collapsible();
+				$('.join.btn').on('click', function() {
+					console.log($(this).data('transport') + $(this).data('package'));
 				});
 			});
 		},
@@ -102,7 +115,6 @@ function renderMyPackages(user) {
 			console.log('Additional error info: ' + error.code + ' ' + error.message);
 		}
 	});
-
 }
 
 function renderMyTransports(user) {
@@ -118,17 +130,51 @@ function renderMyTransports(user) {
 		$('#transport-item-template').html()
 	);
 
+	var transportItempackagesOnBoardItemTemplate = _.template(
+		$('#package-on-board-template').html()
+	);
+
 	Parse.Cloud.run('getTransports', {}, {
 		success: function(transports) {
+			var promises = [];
+
 			_.each(transports, function(transport) {
 				$('#transport-page-content').append(
-					transportItemTemplate({
-						source:		transport.source,
-						destination:	transport.destination,
-						date:		transport.date,
-						slotsAvailable:	transport.slotsAvailable
+					transportItemTemplate(transport)
+				);
+
+				promises.push(
+					Parse.Cloud.run('getPackagesOnBoardForTransport', { transport: transport }, {
+						success: function(pkgs) {
+							_.each(pkgs, function(pkg) {
+								$('#packages-on-board-for-' + transport.objectId).append(
+									transportItempackagesOnBoardItemTemplate({
+										transportId:	transport.objectId,
+										packageId:	pkg.objectId,
+										username:	pkg.userFullname,
+										email:		pkg.userEmail,
+										source:		pkg.source,
+										destination:	pkg.destination,
+										telephone:	pkg.userTelephone
+									})
+								);
+
+							});
+
+						},
+						error: function(error) {
+							console.log('Error retrieving available transports for package ' + transport);
+							console.log('Additional error info: ' + error.code + ' ' + error.message);
+						}
 					})
 				);
+			});
+
+			Parse.Promise.when(promises).then(function() {
+				$('.collapsible').collapsible();
+				$('.accept.btn').on('click', function() {
+					console.log($(this).data('transport') + $(this).data('package'));
+				});
 			});
 		},
 		error: function(error) {

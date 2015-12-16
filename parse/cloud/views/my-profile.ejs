@@ -182,7 +182,7 @@
 					</li>
 					<li class="available-item-join-button collection-item center">
 						<div>
-							<button data-transport-to-join="<@=rc.objectId@>" class="join btn waves-effect waves-light" type="button">
+							<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="join btn waves-effect waves-light" type="button">
 								Join
 							</button>
 						</div>
@@ -275,7 +275,7 @@
 					</li>
 					<@if (rc.state === 'pending') {@>
 					<li class="packages-on-board-accept-button collection-item">
-						<button data-package-to-accept="<@=rc.objectId@>" class="accept btn waves-effect waves-light" type="button">
+						<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="accept btn waves-effect waves-light" type="button">
 							Accept
 						</button>
 					</li>

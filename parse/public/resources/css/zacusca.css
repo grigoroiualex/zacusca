@@ -19,6 +19,11 @@
 	height: 100%;
 }
 
+#login-form .input-field > #password-login,
+#login-form .input-field > label[for="password"] {
+	margin-top: 50px;
+}
+
 #logo-name {
 	margin-left: 20px;
 }

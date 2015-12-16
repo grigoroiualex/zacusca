@@ -40,6 +40,11 @@ $(function() {
 		makeAsideSelection($(this));
 	});
 
+	$('#aside-want-to-send').on('click', function() {
+		renderWantToSendForm();
+		makeAsideSelection($(this));
+	});
+
 	$('#logout-button').on('click', function() {
 		Parse.User.logOut();
 		window.location = '/';
@@ -71,6 +76,8 @@ function renderMyPackages(user) {
 		success: function(pkgs) {
 			var promises = [];
 
+			pkgs = processInput(pkgs);
+
 			_.each(pkgs, function(pkg) {
 				$('#package-page-content').append(
 					packageItemTemplate(pkg)
@@ -79,6 +86,8 @@ function renderMyPackages(user) {
 				promises.push(
 					Parse.Cloud.run('getAvailableTransportsForPackage', { pkg: pkg }, {
 						success: function(transports) {
+							transports = processInput(transports);
+
 							_.each(transports, function(transport) {
 								$('#available-transports-for-' + pkg.objectId).append(
 									packageItemAvailableTransportTemplate({
@@ -88,15 +97,14 @@ function renderMyPackages(user) {
 										email:		transport.userEmail,
 										source:		transport.source,
 										destination:	transport.destination,
-										telephone:	transport.userTelephone
+										telephone:	transport.userTelephone,
+										state:		pkg.state
 									})
 								);
-
 							});
-
 						},
 						error: function(error) {
-							console.log('Error retrieving available transports for package ' + pkg);
+							console.log('Error retrieving available transports for package ');
 							console.log('Additional error info: ' + error.code + ' ' + error.message);
 						}
 					})
@@ -106,7 +114,18 @@ function renderMyPackages(user) {
 			Parse.Promise.when(promises).then(function() {
 				$('.collapsible').collapsible();
 				$('.join.btn').on('click', function() {
-					console.log($(this).data('transport') + $(this).data('package'));
+					$(this).addClass('disabled');
+					Parse.Cloud.run('requestJoin', {
+						pkgId:		$(this).data('package'),
+						transportId:	$(this).data('transport')
+					}, {
+						success: function(result) {
+							Materialize.toast('Cerere trimisă', 2000);
+						},
+						error: function(error) {
+							console.log('Could not request join');
+						}
+					});
 				});
 			});
 		},
@@ -138,6 +157,8 @@ function renderMyTransports(user) {
 		success: function(transports) {
 			var promises = [];
 
+			transports = processInput(transports);
+
 			_.each(transports, function(transport) {
 				$('#transport-page-content').append(
 					transportItemTemplate(transport)
@@ -146,6 +167,8 @@ function renderMyTransports(user) {
 				promises.push(
 					Parse.Cloud.run('getPackagesOnBoardForTransport', { transport: transport }, {
 						success: function(pkgs) {
+							pkgs = processInput(pkgs);
+
 							_.each(pkgs, function(pkg) {
 								$('#packages-on-board-for-' + transport.objectId).append(
 									transportItempackagesOnBoardItemTemplate({
@@ -155,7 +178,8 @@ function renderMyTransports(user) {
 										email:		pkg.userEmail,
 										source:		pkg.source,
 										destination:	pkg.destination,
-										telephone:	pkg.userTelephone
+										telephone:	pkg.userTelephone,
+										state:		pkg.state
 									})
 								);
 
@@ -173,7 +197,22 @@ function renderMyTransports(user) {
 			Parse.Promise.when(promises).then(function() {
 				$('.collapsible').collapsible();
 				$('.accept.btn').on('click', function() {
-					console.log($(this).data('transport') + $(this).data('package'));
+					$(this).addClass('disabled');
+					Parse.Cloud.run('acceptJoin', {
+						pkgId:		$(this).data('package'),
+						transportId:	$(this).data('transport')
+					}, {
+						success: function(result) {
+							Materialize.toast('Pachet acceptat', 2000);
+						},
+						error: function(error) {
+							console.log('Could not accept join');
+						}
+					}).then(function() {
+						$(this).html(
+							'<i class="material-icons">done</i>'
+						);
+					});
 				});
 			});
 		},
@@ -184,7 +223,49 @@ function renderMyTransports(user) {
 	});
 }
 
+function renderWantToSendForm() {
+	var wantToSendTemplate = _.template(
+		$('#want-to-send-page-content-template').html()
+	);
+
+	$('#content-wrapper').html(
+		wantToSendTemplate()
+	);
+
+	$('.datepicker').pickadate({
+		selectMonths:	true,
+		selectYears:	2
+	});
+}
+
+function renderWantToTransportForm() {
+	var wantToTransportTemplate = _.template(
+		$('#want-to-transport-page-content-template').html()
+	);
+
+	$('#content-wrapper').html(
+		wantToTransportTemplate()
+	);
+
+	$('.datepicker').pickadate({
+		selectMonths:	true,
+		selectYears:	2
+	});
+}
+
 function makeAsideSelection(asideOption) {
 	$($('.aside-active')[0]).toggleClass('aside-active');
 	asideOption.parent().toggleClass('aside-active');
+}
+
+function processInput(items) {
+	var ks = JSON.parse(items);
+
+	_.each(ks, function(k) {
+		if (k.date !== undefined) {
+			k.date = new Date(k.date);
+		}
+	});
+
+	return ks;
 }

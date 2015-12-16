@@ -47,7 +47,7 @@ Parse.Cloud.define('getPackages', function(request, response) {
 		_.each(pkgs, function(pkg) {
 			packages.push({
 				objectId:	pkg.id,
-				name: 		pkg.get('name'),
+				name:		pkg.get('name'),
 				source:		pkg.get('source'),
 				destination:	pkg.get('destination'),
 				state:		pkg.get('state'),
@@ -60,7 +60,7 @@ Parse.Cloud.define('getPackages', function(request, response) {
 		resolve.error('Could not query packages')
 	})
 	.then(function(packages) {
-		response.success(packages);
+		response.success(JSON.stringify(packages));
 	});
 });
 
@@ -88,7 +88,7 @@ Parse.Cloud.define('getTransports', function(request, response) {
 		resolve.error('Could not query transports')
 	})
 	.then(function(transports) {
-		response.success(transports);
+		response.success(JSON.stringify(transports));
 	});
 });
 
@@ -164,7 +164,7 @@ Parse.Cloud.define('getAvailableTransportsForPackage', function(request, respons
 			response.error('Could not query available transports');
 		})
 		.then(function() {
-			response.success(results);
+			response.success(JSON.stringify(results));
 		});
 	}, function(error) {
 		response.error('There was an error querying for available transports');
@@ -177,17 +177,17 @@ Parse.Cloud.define('getPackagesOnBoardForTransport', function(request, response)
 	var transportQuery = new Parse.Query('Transport');
 	var results = [];
 
-	transportQuery.equalTo('objectId', request.params.transport.objectId);
-	transportQuery.first()
+	transportQuery.include('pending_packages');
+	transportQuery.get(request.params.transport.objectId, {})
 	.then(function(transport) {
 		var promises = [];
 		var packages = _.union(transport.get('accepted_packages'), transport.get('pending_packages'));
 
 		_.each(packages, function(pkgObjectId) {
 			var pkgQuery = new Parse.Query('Package');
-			pkgQuery.equalTo('objectId', pkgObjectId);
 
-			promises.push(pkgQuery.first()
+			promises.push(
+				pkgQuery.get(pkgObjectId, {})
 				.then(function(pkg) {
 					var p = {
 						objectId:	pkg.id,
@@ -216,7 +216,7 @@ Parse.Cloud.define('getPackagesOnBoardForTransport', function(request, response)
 		response.error('Could not query transport');
 	})
 	.then(function() {
-		response.success(results);
+		response.success(JSON.stringify(results));
 	});
 });
 
@@ -271,11 +271,11 @@ function addPackageToPendingList(pkgId, transportId) {
 }
 
 Parse.Cloud.define('requestJoin', function(request, response) {
-	changePackageState(request.params.pkg.objectId, 'pending')
+	changePackageState(request.params.pkgId, 'pending')
 	.then(function() {
-		return addPackageToPendingList(request.params.pkg.objectId, request.params.transport.objectId);
+		return addPackageToPendingList(request.params.pkgId, request.params.transportId);
 	}, function(error) {
-		response.error('Could not join package to transport. ' + error);
+		response.error('Could not join package to transport. ' + error.message);
 	})
 	.then(function() {
 		response.success('success');
@@ -302,6 +302,7 @@ function movePackageToAcceptedList(pkgId, transportId) {
 			success: function(trans) {
 				trans.remove('pending_packages', pkg.id);
 				trans.addUnique('accepted_packages', pkg.id);
+				trans.increment('slots_available', -1);
 
 				return trans.save();
 			},
@@ -313,11 +314,11 @@ function movePackageToAcceptedList(pkgId, transportId) {
 }
 
 Parse.Cloud.define('acceptJoin', function(request, response) {
-	changePackageState(request.params.pkg.objectId, 'accepted')
+	changePackageState(request.params.pkgId, 'accepted')
 	.then(function() {
-		return movePackageToAcceptedList(request.params.pkg.objectId, request.params.transport.objectId);
+		return movePackageToAcceptedList(request.params.pkgId, request.params.transportId);
 	}, function(error) {
-		response.error('Could not accept package. ' + error);
+		response.error('Could not accept package. ' + error.message);
 	})
 	.then(function() {
 		response.success('success');

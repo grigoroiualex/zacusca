@@ -146,9 +146,11 @@
 	<script type="text/template" id="package-item-available-transport-template">
 	<li class="package-item-available-transport-item">
 		<div class="collapsible-header">
-			<span class="package-on-board-accepted">
-			<@if (rc.state === 'accepted') {@>
+			<span class="available-transport-accepted">
+			<@if (rc.state === 'pending') {@>
 				<i class="material-icons">done</i>
+			<@} else if (rc.state === 'accepted') {@>
+				<i class="material-icons">done_all</i>
 			<@}@>
 			</span>
 			<span><@=rc.username@></span>
@@ -180,6 +182,7 @@
 							<span class="secondary-content"><@=rc.destination@></span>
 						</div>
 					</li>
+					<@if (rc.state === 'not-joined') {@>
 					<li class="available-item-join-button collection-item center">
 						<div>
 							<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="join btn waves-effect waves-light" type="button">
@@ -187,6 +190,7 @@
 							</button>
 						</div>
 					</li>
+					<@}@>
 				</ul>
 			</div>
 		</div>
@@ -274,7 +278,7 @@
 						</div>
 					</li>
 					<@if (rc.state === 'pending') {@>
-					<li class="packages-on-board-accept-button collection-item">
+					<li class="packages-on-board-accept-button collection-item center">
 						<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="accept btn waves-effect waves-light" type="button">
 							Accept
 						</button>
@@ -284,5 +288,70 @@
 			</div>
 		</div>
 	</li>
+	</script>
+	<script type="text/template" id="want-to-send-page-content-template">
+	<div id="want-to-send-page-content" class="container">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">label</i>
+				<input id="name" class="validate" type="text">
+				<label for="name">Nume pentru pachet</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<input id="date" class="datepicker" type="date">
+				<label for="date">Dată</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="source" class="validate" type="text">
+				<label for="source">Oraș sursă</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="destination" class="validate" type="text">
+				<label for="destination">Oraș destinație</label>
+			</div>
+		</div>
+		<div class="row center">
+			<div class="col s12">
+				<button id="want-to-send-button" class="btn waves-effect waves-light" type="button">
+					Adaugă pachet
+				</button>
+			</div>
+		</div>
+	</div>
+	</script>
+	<script type="text/template" id="want-to-transport-page-content-template">
+	<div id="want-to-transport-page-content" class="container">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="source" class="validate" type="text">
+				<label for="source">Oraș sursă</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="destination" class="validate" type="text">
+				<label for="destination">Oraș destinație</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<input id="date" class="datepicker" type="date">
+				<label for="date">Dată</label>
+			</div>
+		</div>
+		<div class="row center">
+			<div class="col s12">
+				<button id="want-to-transport-button" class="btn waves-effect waves-light" type="button">
+					Adaugă pachet
+				</button>
+			</div>
+		</div>
+	</div>
 	</script>
 <% include footer %>

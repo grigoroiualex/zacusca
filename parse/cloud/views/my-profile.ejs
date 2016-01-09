@@ -99,7 +99,7 @@
 	<script type="text/template" id="user-info-template">
 	<div>Bun venit,</div>
 	<div>
-		<span><@=rc.firstName + ' ' + rc.lastName@></span>
+		<span><@=firstName + ' ' + lastName@></span>
 	</div>
 	</script>
 
@@ -112,30 +112,30 @@
 	<div class="col s12 package-item">
 		<div class="card">
 			<div class="card-content">
-				<span class="card-title"><@=rc.name@></span>
+				<span class="card-title"><@=name@></span>
 				<div class="package-item-info collection">
 					<div class="package-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content"><@=rc.source@></span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</div>
 					<div class="package-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content"><@=rc.destination@></span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</div>
 					<div class="package-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content"><@=rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear()@></span>
+							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 				</div>
 				<div class="available-transports-wrapper">
 					<span>Transporturi disponibile:</span>
-					<ul id="available-transports-for-<@=rc.objectId@>" class="collapsible popout" data-collapsible="accordion">
+					<ul id="available-transports-for-<@=objectId@>" class="collapsible popout" data-collapsible="accordion">
 					</ul>
 				</div>
 			</div>
@@ -147,13 +147,13 @@
 	<li class="package-item-available-transport-item">
 		<div class="collapsible-header">
 			<span class="available-transport-accepted">
-			<@if (rc.state === 'pending') {@>
+			<@if (state === 'pending') {@>
 				<i class="material-icons">done</i>
-			<@} else if (rc.state === 'accepted') {@>
+			<@} else if (state === 'accepted') {@>
 				<i class="material-icons">done_all</i>
 			<@}@>
 			</span>
-			<span><@=rc.username@></span>
+			<span><@=username@></span>
 		</div>
 		<div class="collapsible-body">
 			<div class="available-transport-wrapper">
@@ -161,31 +161,31 @@
 					<li class="available-transport-email collection-item">
 						<div>
 							<span>Email:</span>
-							<span class="secondary-content"><@=rc.email@></span>
+							<span class="secondary-content"><@=email@></span>
 						</div>
 					</li>
 					<li class="available-transport-telephone collection-item">
 						<div>
 							<span>Telefon:</span>
-							<span class="secondary-content"><@=rc.telephone@></span>
+							<span class="secondary-content"><@=telephone@></span>
 						</div>
 					</li>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content"><@=rc.source@></span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</li>
 					<li class="available-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content"><@=rc.destination@></span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</li>
-					<@if (rc.state === 'not-joined') {@>
+					<@if (state === 'not-joined') {@>
 					<li class="available-item-join-button collection-item center">
 						<div>
-							<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="join btn waves-effect waves-light" type="button">
+							<button data-package="<@=packageId@>" data-transport="<@=transportId@>" class="join btn waves-effect waves-light" type="button">
 								Join
 							</button>
 						</div>
@@ -210,30 +210,30 @@
 					<div class="transport-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content"><@=rc.source@></span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</div>
 					<div class="transport-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content"><@=rc.destination@></span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</div>
 					<div class="transport-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content"><@=rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear()@></span>
+							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 					<div class="transport-item-available-slots collection-item">
 						<div>
 							<span>Mai este loc pentru:</span>
-							<span class="secondary-content"><@=(rc.slotsAvailable == 1) ? (rc.slotsAvailable + ' pachet') : (rc.slotsAvailable + ' pachete')@></span>
+							<span class="secondary-content"><@=(slotsAvailable == 1) ? (slotsAvailable + ' pachet') : (slotsAvailable + ' pachete')@></span>
 						</div>
 					</div>
 				</div>
 				<div class="packages-on-board-wrapper">
-					<ul id="packages-on-board-for-<@=rc.objectId@>" class="packages-on-board collapsible popout" data-collapsible="accordion">
+					<ul id="packages-on-board-for-<@=objectId@>" class="packages-on-board collapsible popout" data-collapsible="accordion">
 					</ul>
 				</div>
 			</div>
@@ -244,11 +244,11 @@
 	<li class="transport-item-package-on-board-item">
 		<div class="collapsible-header">
 			<span class="package-on-board-accepted">
-			<@if (rc.state === 'accepted') {@>
+			<@if (state === 'accepted') {@>
 				<i class="material-icons">done</i>
 			<@}@>
 			</span>
-			<span><@=rc.username@></span>
+			<span><@=username@></span>
 		</div>
 		<div class="collapsible-body">
 			<div class="package-on-board-wrapper">
@@ -256,30 +256,30 @@
 					<li class="available-transport-email collection-item">
 						<div>
 							<span>Email:</span>
-							<span class="secondary-content"><@=rc.email@></span>
+							<span class="secondary-content"><@=email@></span>
 						</div>
 					</li>
 					<li class="available-transport-telephone collection-item">
 						<div>
 							<span>Telefon:</span>
-							<span class="secondary-content"><@=rc.telephone@></span>
+							<span class="secondary-content"><@=telephone@></span>
 						</div>
 					</li>
 					<li class="package-on-board-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content"><@=rc.source@></span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</li>
 					<li class="available-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content"><@=rc.destination@></span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</li>
-					<@if (rc.state === 'pending') {@>
+					<@if (state === 'pending') {@>
 					<li class="packages-on-board-accept-button collection-item center">
-						<button data-package="<@=rc.packageId@>" data-transport="<@=rc.transportId@>" class="accept btn waves-effect waves-light" type="button">
+						<button data-package="<@=packageId@>" data-transport="<@=transportId@>" class="accept btn waves-effect waves-light" type="button">
 							Accept
 						</button>
 					</li>

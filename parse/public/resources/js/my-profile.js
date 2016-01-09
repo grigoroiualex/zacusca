@@ -9,8 +9,7 @@ $(function() {
 	_.templateSettings = {
 		interpolate:	/\<\@\=(.+?)\@\>/gim,
 		evaluate:	/\<\@(.+?)\@\>/gim,
-		escpe:		/\<\@\-(.+?)\@\>/gim,
-		variable:	"rc"
+		escpe:		/\<\@\-(.+?)\@\>/gim
 	};
 
 	var currentUser = Parse.User.current();
@@ -158,7 +157,7 @@ function renderMyTransports(user) {
 		$('#package-on-board-template').html()
 	);
 
-	Parse.Cloud.run('getTransports', {}, {
+	Parse.Cloud.run('getTransportsByCurrentUser', {}, {
 		success: function(transports) {
 			var promises = [];
 

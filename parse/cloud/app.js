@@ -66,46 +66,54 @@ Parse.Cloud.define('getPackages', function(request, response) {
 
 // Queries for the transports that the user scheduled
 Parse.Cloud.define('getTransportsByFbId', function(request, response) {
-	var transports = getTransportsBy('fbId', request.params.facebookId);
+	var promise = getTransportsBy('fbId', request.params.facebookId);
 
-	if (transports == null) {
-		response.error('Error retrieving transports');
-	} else {
-		response.success(JSON.stringify(transports));
-	}
+	promise.then(function(transports) {
+		if (transports == null) {
+			response.error('Error retrieving transports');
+		} else {
+			response.success(JSON.stringify(transports));
+		}
+	});
 });
 Parse.Cloud.define('getTransportsByUserId', function(request, response) {
-	var transports = getTransportsBy('userId', request.params.userId);
+	var promise = getTransportsBy('userId', request.params.userId);
 
-	if (transports == null) {
-		response.error('Error retrieving transports');
-	} else {
-		response.success(JSON.stringify(transports));
-	}
+	promise.then(function(transports) {
+		if (transports == null) {
+			response.error('Error retrieving transports');
+		} else {
+			response.success(JSON.stringify(transports));
+		}
+	});
 });
 Parse.Cloud.define('getTransportsByUser', function(request, response) {
-	var transports = getTransportsBy('userObj', request.params.userObj);
+	var promise = getTransportsBy('userObj', request.params.userObj);
 
-	if (transports == null) {
-		response.error('Error retrieving transports');
-	} else {
-		response.success(JSON.stringify(transports));
-	}
+	promise.then(function(transports) {
+		if (transports == null) {
+			response.error('Error retrieving transports');
+		} else {
+			response.success(JSON.stringify(transports));
+		}
+	});
 });
 Parse.Cloud.define('getTransportsByCurrentUser', function(request, response) {
-	var transports = getTransportsBy('userObj', request.user);
+	var promise = getTransportsBy('userObj', request.user);
 
-	if (transports == null) {
-		response.error('Error retrieving transports');
-	} else {
-		response.success(JSON.stringify(transports));
-	}
+	promise.then(function(transports) {
+		if (transports == null) {
+			response.error('Error retrieving transports');
+		} else {
+			response.success(JSON.stringify(transports));
+		}
+	});
 });
 
 function getUserObject(identifierType, identifier) {
 	if (identifierType === 'userObj') {
 		return identifier;
-	else if (identifierType === 'userId') {
+	} else if (identifierType === 'userId') {
 		var userQuery = new Parse.Query(Parse.User);
 
 		return userQuery.get(user.id, {
@@ -116,7 +124,7 @@ function getUserObject(identifierType, identifier) {
 				return null;
 			}
 		});
-	else if (identifierType === 'fbId') {
+	} else if (identifierType === 'fbId') {
 		var userQuery = new Parse.Query(Parse.User);
 
 		userQuery.equalTo('facebook_id', identifier);
@@ -159,7 +167,7 @@ function getTransportsBy(identifierType, identifier) {
 
 			return transports;
 		});
-});
+}
 
 // Sets user info for given transport and returns the transport
 // as a resolved promise

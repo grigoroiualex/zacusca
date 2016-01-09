@@ -13,19 +13,20 @@ $(function() {
 	};
 
 	var currentUser = Parse.User.current();
+	currentUser.fetch().then(function() {
+		var userInfoTemplate = _.template(
+			$('#user-info-template').html()
+		);
 
-	var userInfoTemplate = _.template(
-		$('#user-info-template').html()
-	);
+		var templateData = {
+			firstName: currentUser.get("firstname"),
+			lastName: currentUser.get("lastname")
+		};
 
-	var templateData = {
-		firstName : currentUser.get("firstname"),
-		lastName : currentUser.get("lastname")
-	};
-
-	$('#user-info').html(
-		userInfoTemplate(templateData)
-	);
+		$('#user-info').html(
+			userInfoTemplate(templateData)
+		);
+	});
 
 	$('#aside-my-packages').on('click', function() {
 		renderMyPackages(currentUser);

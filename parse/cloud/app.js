@@ -112,16 +112,13 @@ Parse.Cloud.define('getTransportsByCurrentUser', function(request, response) {
 
 function getUserObject(identifierType, identifier) {
 	if (identifierType === 'userObj') {
-		return identifier;
+		return new Parse.Promise.as(identifier);
 	} else if (identifierType === 'userId') {
 		var userQuery = new Parse.Query(Parse.User);
 
 		return userQuery.get(user.id, {
 			success: function(user) {
 				return user;
-			},
-			error: function(user) {
-				return null;
 			}
 		});
 	} else if (identifierType === 'fbId') {
@@ -129,13 +126,12 @@ function getUserObject(identifierType, identifier) {
 
 		userQuery.equalTo('facebook_id', identifier);
 		return userQuery.find()
-			.then(function(user) {
-				return user[0];
-			},
-			function(error) {
-				return null;
+			.then(function(users) {
+				return users[0];
 			});
 	}
+	
+	return null;
 }
 
 // Queries for the transports that the user scheduled.
@@ -143,30 +139,27 @@ function getUserObject(identifierType, identifier) {
 // column where to look for the identifier
 function getTransportsBy(identifierType, identifier) {
 	var transQuery = new Parse.Query('Transport');
-	var userObject = getUserObject(identifierType, identifier);
-	console.log(userObject);
+	var promise = getUserObject(identifierType, identifier);
 
-	if (userObject == null) {
-		return null;
-	}
+	return promise.then(function(userObject) {
+		transQuery.equalTo('user', userObject);
+		return transQuery.find()
+			.then(function(trans) {
+				var transports = [];
 
-	transQuery.equalTo('user', userObject);
-	return transQuery.find()
-		.then(function(trans) {
-			var transports = [];
-
-			_.each(trans, function(tran) {
-				transports.push({
-					objectId:	tran.id,
-					source:		tran.get('source'),
-					destination:	tran.get('destination'),
-					date:		tran.get('date'),
-					slotsAvailable:	tran.get('slots_available')
+				_.each(trans, function(tran) {
+					transports.push({
+						objectId:	tran.id,
+						source:		tran.get('source'),
+						destination:	tran.get('destination'),
+						date:		tran.get('date'),
+						slotsAvailable:	tran.get('slots_available')
+					});
 				});
-			});
 
-			return transports;
-		});
+				return transports;
+			});
+	});
 }
 
 // Sets user info for given transport and returns the transport

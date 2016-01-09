@@ -50,10 +50,11 @@ $(function() {
 				if (!user.existed()) {
 					Materialize.toast('Cont creat prin Facebook cu succes', 2000);
 
-					FB.api('/me', {fields: 'first_name,last_name,email'}, function(response) {
+					FB.api('/me', {fields: 'first_name,last_name,email,id'}, function(response) {
 						user.set('firstname', response.first_name);
 						user.set('lastname', response.last_name);
 						user.set('email', response.email);
+						user.set('facebook_id', response.id);
 						user.save(null, {
 							success: function(user) {
 								Materialize.toast('și date suplimentare salvate', 2000);

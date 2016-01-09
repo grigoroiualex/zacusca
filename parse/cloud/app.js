@@ -65,31 +65,100 @@ Parse.Cloud.define('getPackages', function(request, response) {
 });
 
 // Queries for the transports that the user scheduled
-Parse.Cloud.define('getTransports', function(request, response) {
-	var transQuery = new Parse.Query('Transport');
-	transQuery.equalTo('user', request.user);
+Parse.Cloud.define('getTransportsByFbId', function(request, response) {
+	var transports = getTransportsBy('fbId', request.params.facebookId);
 
-	transQuery.find()
-	.then(function(trans) {
-		var transports = [];
-
-		_.each(trans, function(tran) {
-			transports.push({
-				objectId:	tran.id,
-				source:		tran.get('source'),
-				destination:	tran.get('destination'),
-				date:		tran.get('date'),
-				slotsAvailable:	tran.get('slots_available')
-			});
-		});
-
-		return transports;
-	}, function(error) {
-		resolve.error('Could not query transports')
-	})
-	.then(function(transports) {
+	if (transports == null) {
+		response.error('Error retrieving transports');
+	} else {
 		response.success(JSON.stringify(transports));
-	});
+	}
+});
+Parse.Cloud.define('getTransportsByUserId', function(request, response) {
+	var transports = getTransportsBy('userId', request.params.userId);
+
+	if (transports == null) {
+		response.error('Error retrieving transports');
+	} else {
+		response.success(JSON.stringify(transports));
+	}
+});
+Parse.Cloud.define('getTransportsByUser', function(request, response) {
+	var transports = getTransportsBy('userObj', request.params.userObj);
+
+	if (transports == null) {
+		response.error('Error retrieving transports');
+	} else {
+		response.success(JSON.stringify(transports));
+	}
+});
+Parse.Cloud.define('getTransportsByCurrentUser', function(request, response) {
+	var transports = getTransportsBy('userObj', request.user);
+
+	if (transports == null) {
+		response.error('Error retrieving transports');
+	} else {
+		response.success(JSON.stringify(transports));
+	}
+});
+
+function getUserObject(identifierType, identifier) {
+	if (identifierType === 'userObj') {
+		return identifier;
+	else if (identifierType === 'userId') {
+		var userQuery = new Parse.Query(Parse.User);
+
+		return userQuery.get(user.id, {
+			success: function(user) {
+				return user;
+			},
+			error: function(user) {
+				return null;
+			}
+		});
+	else if (identifierType === 'fbId') {
+		var userQuery = new Parse.Query(Parse.User);
+
+		userQuery.equalTo('facebook_id', identifier);
+		return userQuery.find()
+			.then(function(user) {
+				return user[0];
+			},
+			function(error) {
+				return null;
+			});
+	}
+}
+
+// Queries for the transports that the user scheduled.
+// identifierType can be 'userObj', 'userId' or 'fbId' and represents the
+// column where to look for the identifier
+function getTransportsBy(identifierType, identifier) {
+	var transQuery = new Parse.Query('Transport');
+	var userObject = getUserObject(identifierType, identifier);
+	console.log(userObject);
+
+	if (userObject == null) {
+		return null;
+	}
+
+	transQuery.equalTo('user', userObject);
+	return transQuery.find()
+		.then(function(trans) {
+			var transports = [];
+
+			_.each(trans, function(tran) {
+				transports.push({
+					objectId:	tran.id,
+					source:		tran.get('source'),
+					destination:	tran.get('destination'),
+					date:		tran.get('date'),
+					slotsAvailable:	tran.get('slots_available')
+				});
+			});
+
+			return transports;
+		});
 });
 
 // Sets user info for given transport and returns the transport

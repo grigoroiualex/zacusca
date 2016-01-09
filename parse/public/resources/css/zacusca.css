@@ -116,6 +116,11 @@ nav .input-field label i.material-icons-black{
 	width: 30px;
 }
 
+#want-to-transport-page-content,
+#want-to-send-page-content {
+	margin-top: 50px;
+}
+
 @media only screen and (max-width : 992px) {
 	#content-wrapper{
 		padding-left: 0px;

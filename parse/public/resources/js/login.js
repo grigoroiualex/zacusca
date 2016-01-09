@@ -45,7 +45,7 @@ $(function() {
 	});
 
 	$('#fb-login-button').click(function() {
-		Parse.FacebookUtils.logIn('public_profile,email', {
+		Parse.FacebookUtils.logIn('public_profile,email,user_friends', {
 			success: function(user) {
 				if (!user.existed()) {
 					Materialize.toast('Cont creat prin Facebook cu succes', 2000);
@@ -82,4 +82,3 @@ $(function() {
 		});
 	});
 });
-

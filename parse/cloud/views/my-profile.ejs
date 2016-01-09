@@ -10,7 +10,7 @@
 
 					<!-- /.navbar-header -->
 
-					<ul class="right hide-on-med-and-down">
+					<ul class="right">
 						<li class="waves-effect page-tools">
 							<span id="refresh-content-button">
 								<i class="material-icons">refresh</i>
@@ -290,17 +290,17 @@
 	</li>
 	</script>
 	<script type="text/template" id="want-to-send-page-content-template">
-	<div id="want-to-send-page-content" class="container">
+	<div id="want-to-send-page-content">
 		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<label class="active">Dată</label>
+				<input id="date" class="datepicker" type="date">
+			</div>
 			<div class="input-field col s12 m6">
 				<i class="material-icons prefix">label</i>
 				<input id="name" class="validate" type="text">
 				<label for="name">Nume pentru pachet</label>
-			</div>
-			<div class="input-field col s12 m6">
-				<i class="material-icons prefix">schedule</i>
-				<input id="date" class="datepicker" type="date">
-				<label for="date">Dată</label>
 			</div>
 		</div>
 		<div class="row">
@@ -325,7 +325,19 @@
 	</div>
 	</script>
 	<script type="text/template" id="want-to-transport-page-content-template">
-	<div id="want-to-transport-page-content" class="container">
+	<div id="want-to-transport-page-content">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<label class="active">Dată</label>
+				<input id="date" class="datepicker" type="date">
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">work</i>
+				<label class="active">Locuri disponibile</label>
+				<div id="slots-available"></div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="input-field col s12 m6">
 				<i class="material-icons prefix">location_on</i>
@@ -338,17 +350,10 @@
 				<label for="destination">Oraș destinație</label>
 			</div>
 		</div>
-		<div class="row">
-			<div class="input-field col s12 m6">
-				<i class="material-icons prefix">schedule</i>
-				<input id="date" class="datepicker" type="date">
-				<label for="date">Dată</label>
-			</div>
-		</div>
 		<div class="row center">
 			<div class="col s12">
 				<button id="want-to-transport-button" class="btn waves-effect waves-light" type="button">
-					Adaugă pachet
+					Adaugă transport
 				</button>
 			</div>
 		</div>

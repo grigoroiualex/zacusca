@@ -45,6 +45,11 @@ $(function() {
 		makeAsideSelection($(this));
 	});
 
+	$('#aside-want-to-transport').on('click', function() {
+		renderWantToTransportForm();
+		makeAsideSelection($(this));
+	});
+
 	$('#logout-button').on('click', function() {
 		Parse.User.logOut();
 		window.location = '/';
@@ -98,7 +103,7 @@ function renderMyPackages(user) {
 										source:		transport.source,
 										destination:	transport.destination,
 										telephone:	transport.userTelephone,
-										state:		pkg.state
+										state:		transport.state
 									})
 								);
 							});
@@ -236,6 +241,59 @@ function renderWantToSendForm() {
 		selectMonths:	true,
 		selectYears:	2
 	});
+
+	$('#want-to-send-button').on('click', function() {
+		$(this).addClass('disable');
+
+		var name = $('#name').val();
+		var date = $('#date').val();
+		var source = $('#source').val();
+		var destination = $('#destination').val();
+
+		if (!allFieldsFilled([name, date, source, destination])) {
+			Materialize.toast('Toate câmpurile trebuie completate!', 2000);
+			$(this).toggleClass('disable');
+
+			return;
+		}
+
+		date = new Date(date);
+
+		var PkgObj = Parse.Object.extend('Package');
+		var pkg = new PkgObj();
+
+		pkg.save({
+			name:		name,
+			date:		date,
+			source:		source,
+			destination:	destination,
+			user:		Parse.User.current(),
+			state:		'not-joined'
+		}, {
+			success: function(pkg) {
+				Materialize.toast('Pachet adăugat cu succes', 2000);
+				$(this).toggleClass('disable');
+				$('#name').val('');
+				$('#date').val('');
+				$('#source').val('');
+				$('#destination').val('');
+			},
+			error: function(error) {
+				Materialize.toast('Pachetul nu a putut fi adăugat', 2000);
+			}
+		});
+	});
+
+}
+
+function allFieldsFilled(fieldsValues) {
+	for (var i  = 0; i < fieldsValues.length; i++) {
+		if (fieldsValues[i] === '') {
+			return false;
+		}
+	}
+
+	return true;
 }
 
 function renderWantToTransportForm() {
@@ -250,6 +308,64 @@ function renderWantToTransportForm() {
 	$('.datepicker').pickadate({
 		selectMonths:	true,
 		selectYears:	2
+	});
+
+	var slider = document.getElementById('slots-available');
+	noUiSlider.create(slider, {
+		start:		0,
+		connect:	'lower',
+		step:		1,
+		range: {
+			'min':	1,
+			'max':	10
+		},
+		format:		wNumb({
+			decimals:	0
+		})
+	});
+
+	$('#want-to-transport-button').on('click', function() {
+		$(this).addClass('disable');
+
+		//var slotsAvailable = $('#slots-available').val();
+		var date = $('#date').val();
+		var source = $('#source').val();
+		var destination = $('#destination').val();
+
+		if (!allFieldsFilled([date, source, destination])) {
+			Materialize.toast('Toate câmpurile trebuie completate!', 2000);
+			$(this).toggleClass('disable');
+
+			return;
+		}
+
+		date = new Date(date);
+
+		var TransObj = Parse.Object.extend('Transport');
+		var trans = new TransObj();
+
+		trans.save({
+			name:			name,
+			date:			date,
+			source:			source,
+			destination:		destination,
+			slots_available:	3, //slotsAvailable,
+			accepted_packages:	[],
+			pending_packages:	[],
+			user:			Parse.User.current()
+		}, {
+			success: function(trans) {
+				Materialize.toast('Transport adăugat cu succes', 2000);
+				$(this).toggleClass('disable');
+				//$('#slots-available').val('');
+				$('#date').val('');
+				$('#source').val('');
+				$('#destination').val('');
+			},
+			error: function(error) {
+				Materialize.toast('Transportul nu a putut fi adăugat', 2000);
+			}
+		});
 	});
 }
 

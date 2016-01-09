@@ -132,18 +132,35 @@ Parse.Cloud.define('getAvailableTransportsForPackage', function(request, respons
 		transportQuery.equalTo('destination', pkg.get('destination'));
 		transportQuery.greaterThan('date', pkgDate.startOf('day').toDate());
 		transportQuery.lessThan('date', pkgDate.endOf('day').toDate());
+		transportQuery.include('pending_packages');
+		transportQuery.include('accepted_packages');
 
 		return transportQuery.find()
 		.then(function(transports) {
 			var promises = [];
 
 			_.each(transports, function(transport) {
-				var trans;
+				var trans, state;
+				var pkgs = _.union(transport.get('pending_packages'), transport.get('accepted_packages'));
+				var found = _.find(pkgs, function(p) {
+					if (p == request.params.pkg.objectId) {
+						return true;
+					}
+
+					return false;
+				});
+
+				if (found) {
+					state = request.params.pkg.state;
+				} else {
+					state = 'not-joined';
+				}
 
 				trans = {
 					objectId:	transport.id,
 					source:		transport.get('source'),
 					destination:	transport.get('destination'),
+					state:		state,
 					userFullname:	'',
 					userEmail:	'',
 					userTelephone:	''

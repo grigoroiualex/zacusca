@@ -6,7 +6,7 @@
 	<script src="/resources/js/init.js"></script>
 	<% if (!_.isEmpty(extraJSs)) { %>
 		<% extraJSs.forEach(function(extraJS) { %>
-			<script src="/resources/js/<%=  extraJS %>"></script>
+			<script src="<%= extraJS %>"></script>
 		<% }); %>
 	<% } %>
 </body>

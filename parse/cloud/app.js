@@ -11,6 +11,8 @@ app.set('view engine', 'ejs');    // Set the template engine
 app.use(express.bodyParser());    // Middleware for reading request body
 
 var titlePrefix = 'Zacusca';
+var jsResourcesPath = '/resources/js/';
+var jsVendorsPath = '/vendors/js/';
 
 app.locals.extraJSs = [];
 app.locals._ = _;
@@ -18,7 +20,7 @@ app.locals._ = _;
 // This is an example of hooking up a request handler with a specific request
 // path and HTTP verb using the Express routing API.
 app.get('/profilul-meu', function(req, res) {
-	app.locals.extraJSs.push('my-profile.js');
+	app.locals.extraJSs.push(jsResourcesPath + 'my-profile.js');
 	app.locals.extraJSs.push('https://maps.googleapis.com/maps/api/js?key=AIzaSyDaHp5QjUTb2ve2hpdSNtp7gdLl3dd6QHg&callback=initMap');
 
 	res.render('my-profile', {

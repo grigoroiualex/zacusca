@@ -158,6 +158,7 @@
 		<div class="collapsible-body">
 			<div class="available-transport-wrapper">
 				<ul class="collection">
+					<@if (state !== 'not-joined') {@>
 					<li class="available-transport-email collection-item">
 						<div>
 							<span>Email:</span>
@@ -170,6 +171,7 @@
 							<span class="secondary-content"><@=telephone@></span>
 						</div>
 					</li>
+					<@}@>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Sursă:</span>

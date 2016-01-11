@@ -19,9 +19,10 @@ app.locals._ = _;
 // path and HTTP verb using the Express routing API.
 app.get('/profilul-meu', function(req, res) {
 	app.locals.extraJSs.push('my-profile.js');
+	app.locals.extraJSs.push('https://maps.googleapis.com/maps/api/js?key=AIzaSyDaHp5QjUTb2ve2hpdSNtp7gdLl3dd6QHg&callback=initMap');
 
 	res.render('my-profile', {
-		title: titlePrefix + ' - Profilul meu',
+		title: titlePrefix + ' - Profilul meu'
 	});
 });
 
@@ -347,7 +348,10 @@ function addPackageToPendingList(pkgId, transportId) {
 
 		return transQuery.get(transportId, {
 			success: function(trans) {
+				pkg.set('transport', trans);
+				pkg.save();
 				trans.addUnique('pending_packages', pkg.id);
+
 				return trans.save();
 			},
 			error: function(error) {
@@ -409,6 +413,42 @@ Parse.Cloud.define('acceptJoin', function(request, response) {
 	})
 	.then(function() {
 		response.success('success');
+	});
+});
+
+Parse.Cloud.define('setCoordinatesForTransport', function(request, response) {
+	var transportQuery = new Parse.Query('Transport');
+
+	transportQuery.equalTo('objectId', request.params.transportId);
+	transportQuery.first().then(function(transport) {
+		transport.set('lat', request.params.lat);
+		transport.set('lng', request.params.lng);
+
+		transport.save();
+
+		response.success('success');
+	},
+	function(error) {
+		response.error(error);
+	});
+});
+
+Parse.Cloud.define('getCoordinatesForPackage', function(request, response) {
+	var packageQuery = new Parse.Query('Package');
+
+	packageQuery.equalTo('objectId', request.params.packageId);
+	packageQuery.first().then(function(pkg) {
+		var transportQuery = new Parse.Query('Transport');
+
+		transportQuery.equalTo('transport', pkg.transport);
+		transportQuery.first().then(function(transport) {
+			var coordinates = {
+				'lat': transport.get('lat'),
+				'lng': transport.get('lng')
+			};
+
+			response.success(coordinates);
+		});
 	});
 });
 

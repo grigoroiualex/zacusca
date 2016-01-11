@@ -4,4 +4,4 @@
     android:layout_height="match_parent" android:id="@+id/map"
     tools:context="ro.ioc.zacusca.activities.MapsActivity"
     android:name="com.google.android.gms.maps.SupportMapFragment" />
-<!-- From: file:/C:/Users/drago/AndroidStudioProjects/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/src/main/res/layout/activity_maps.xml -->
+<!-- From: file:/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/src/main/res/layout/activity_maps.xml -->

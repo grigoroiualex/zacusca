@@ -2,32 +2,256 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\drago\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.1\support-annotations-22.2.1.jar"
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="eb576427887e497cd958a475475f9206e38dc314">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-6dc3c74c85abd71badafa2404ad654882067f742.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-auth/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="fd76d95678a6b2b8a49bb8a9fb5bcef7aedb70e7">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-8a4e527ee4018fd7c926cd7a9b85cd74e06a1de0.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="af6ee25641df3142059c0828517aa7ee6eba08d6">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-d6dcdc2676dbd10ca93d079cdc29e3d429141b9f.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0af4f577b4a21eb9be2a7f52e33b077b67e6d9f8">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-eb00657b5c760e78d824eb0fded4e1ecb0d54458.jar" />
+    </item>
+    <item
+        jar="/home/dragos/adt-bundle-linux-x86-20130522/sdk/extras/android/m2repository/com/android/support/support-annotations/22.2.1/support-annotations-22.2.1.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="61a0ff5c29295ec56d7e0bd3d25d95dbf71b4b2b">
-        <dex dex="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\pre-dexed\debug\support-annotations-22.2.1-f6e72f1d8648de13054f672372ba1cd3ac914495.jar" />
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/support-annotations-22.2.1-d45ed4761acbcc182cf8a13770de42327ed2eb46.jar" />
     </item>
     <item
-        jar="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\classes.jar"
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.parse/parsefacebookutils-v4-android/1.10.3/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="f8efd0096475e0daf054267b61544e10dc776503">
-        <dex dex="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\pre-dexed\debug\classes-2d5906cdbdb25e2fb4aeaca09798aac3e5d99a6e.jar" />
+        sha1="771e1739a38be7573c55458d16ca2d2f9f546cf7">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-2392594a13c3dc042aeef80b7fe63d17ebae1cfe.jar" />
     </item>
     <item
-        jar="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.1\jars\classes.jar"
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.3.0/jars/classes.jar"
         jumboMode="false"
         revision="23.0.1"
-        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
-        <dex dex="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\pre-dexed\debug\classes-62185b52b2c60c35933f0ce90bdd5371cebed8fd.jar" />
+        sha1="697679619b00837e3d09e9988a2e1e2a9009d502">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-49d26baad8071b564f4f3b53c6578f3f033ac9e3.jar" />
     </item>
     <item
-        jar="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.1\jars\libs\internal_impl-22.2.1.jar"
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/libs/internal_impl-22.2.1.jar"
         jumboMode="false"
         revision="23.0.1"
         sha1="c471eaaba13ff64f6e0383d1c30a9cdc9a97efeb">
-        <dex dex="C:\Users\drago\AndroidStudioProjects\zacusca\android\Parse-Starter-Project-1.11.0\ParseStarterProject\build\intermediates\pre-dexed\debug\internal_impl-22.2.1-5d03c6dc102d5664709825722aba2e2ef00ad513.jar" />
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/internal_impl-22.2.1-546024cf4abff988907618ca07ba94c769b2c2d3.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="27775d59b16610ac76f1b83693fedd9520396332">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-cf89b5c15cdf530b8e96fb943ed6577f1e1387e2.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="e1fa5e1123997a55e3ed65b44892993ff4b58cfe">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-e386d9d32eb491c1de1b01cf6aeffedd2990122f.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/design/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="1821601ddbec5ff125653097812823388700af74">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-b106cc4bcd56b165879765fa86c2b6cc44985f0b.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="77f9593d979f4347344be233bd0d888315f79517">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-99f31d6da27dd67e26511f5e0b22f39a8d8daafd.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="724ce977487ab3a215d4d2eb47d8dccd9f30013f">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-51753e84f1c2e386af70d5a4eba10b8df2da0d98.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="744c49c02a27569cc4cc049685d3649e4ef439f2">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-64681480548cb67ed66b9ecbef99d7ca8e1d41d9.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9c9bdb4b2497465a6cf7d5e8f57c5298f828a380">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-725deed490272bd100e710e310e15fbcfaa4809f.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-1fee2453ec4c9677a8fc38f217df4f7d6590593c.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="ea34579b1be157cd792376362157e9c54ebb4cd7">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-058f5a753040bae4030d9fd136647f23867fac59.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-721144d0dda3526d88d6733aa1182c00587fbbc8.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="cb4af597d079ffdc0984a3ec2c03cbf6a1b9f869">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-c63b14529df0e7524fbadb6826cfcb606d8fb8c7.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="9aedc597d74c6d77258ce5236e9abff0c3cc65e3">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-b8f2cfcba40eb9b0bc1d3e996167916b39222e4e.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="2c6fcd6267cbac6509a2e72a61127534a1d616cf">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-d5d12badc44a721016b6253b6c5c9b152d6a9e0b.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="01a90bbb9495a8bbf6f3cfdf12f1b35caaa9524b">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-23095201b0a8b259aeeeaa44b6c3ea78bb70c471.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="3abb4b88f5a8a0584a9b01d3170d7165f12f8588">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-5130c389386a608677fd54b35e7b5d290f654ec2.jar" />
+    </item>
+    <item
+        jar="/home/dragos/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.1/44780c2cf98f6a3cf4e77f1234d644758b329201/bolts-android-1.2.1.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="44780c2cf98f6a3cf4e77f1234d644758b329201">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/bolts-android-1.2.1-789e5bae36f754dcc5babbff8a91c38da79d6b3a.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="6d9ed9a288364688e7fcf6704776284dac1eb42e">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-43796023a54063b03093b0fd4518a114d0dacdc8.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="f8efd0096475e0daf054267b61544e10dc776503">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-2a813f24ebe6c593872d425cb37661ecf919541e.jar" />
+    </item>
+    <item
+        jar="/home/dragos/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.10.3/36366e460af2c0f224bb8f70b64e3302f638b138/parse-android-1.10.3.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="36366e460af2c0f224bb8f70b64e3302f638b138">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/parse-android-1.10.3-903878c2696d2871cac9319cdc212a7f1ec99e94.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="71eda10e33212e44245524b5087366ff8d805825">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-fde0647053322e0b20d473c774723a24493a24b6.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0c3e81d3eb86b86d194b5cdb6a4de78203f6f7fd">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-f511c8c84ddf9f95cf2fedb0998fe1b251dc1d3c.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-065efe3943ad7d23c06fb240ec85637cdca4e6b4.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="b000ecceb9877fefcdc7ab1959ff03df91551656">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-25f39133a851ba8e72e90d74e73ff21915ff75ab.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.7.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="5bdb38b7e4b6094891648c1dc4dc08589b460f97">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-225cc8dfd76f57500650343447a2d4bf07d5b94c.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="58adcfbe2c8393765e84c5489d01bba6a5159eb2">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-90e2e15d03bc3ecc4642e3b0f34e21fcef00ace4.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="4b8df1b1e51fe14b0e89b3845dc2e215a024a09f">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-ec13a7312eca0455e663241afe77cc879dfa0834.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="345a1b5cf5b144ce18ba6962bc66a7e2f26c1c1b">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-4e3db62a688068ef29210f1dbad98fc0e535255f.jar" />
+    </item>
+    <item
+        jar="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.1"
+        sha1="0a1897426566e408a5c20a3d931f77d89771d07f">
+        <dex dex="/home/dragos/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/build/intermediates/pre-dexed/debug/classes-698a064e1aaf32ecdd930b3b20c6b9b04dafdda3.jar" />
     </item>
 
 </items>

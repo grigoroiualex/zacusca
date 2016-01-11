@@ -351,10 +351,11 @@ function addPackageToPendingList(pkgId, transportId) {
 		return transQuery.get(transportId, {
 			success: function(trans) {
 				pkg.set('transport', trans);
-				pkg.save();
-				trans.addUnique('pending_packages', pkg.id);
+				return pkg.save().then(function() {
+					trans.addUnique('pending_packages', pkg.id);
 
-				return trans.save();
+					return trans.save();
+				});
 			},
 			error: function(error) {
 				return Parse.Promise.error(error);
@@ -364,9 +365,9 @@ function addPackageToPendingList(pkgId, transportId) {
 }
 
 Parse.Cloud.define('requestJoin', function(request, response) {
-	changePackageState(request.params.pkgId, 'pending')
+	addPackageToPendingList(request.params.pkgId, request.params.transportId)
 	.then(function() {
-		return addPackageToPendingList(request.params.pkgId, request.params.transportId);
+		return changePackageState(request.params.pkgId, 'pending');
 	}, function(error) {
 		response.error('Could not join package to transport. ' + error.message);
 	})

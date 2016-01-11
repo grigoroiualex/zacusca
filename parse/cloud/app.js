@@ -443,7 +443,8 @@ Parse.Cloud.define('getCoordinatesForPackage', function(request, response) {
 	packageQuery.first().then(function(pkg) {
 		var transportQuery = new Parse.Query('Transport');
 
-		transportQuery.equalTo('transport', pkg.transport);
+		console.log(pkg.get('transport'));
+		transportQuery.equalTo('objectId', pkg.get('transport').id);
 		transportQuery.first().then(function(transport) {
 			var coordinates = {
 				'lat': transport.get('lat'),

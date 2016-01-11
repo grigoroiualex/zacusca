@@ -19,6 +19,11 @@
 	height: 100%;
 }
 
+#login-form .input-field > #password-login,
+#login-form .input-field > label[for="password"] {
+	margin-top: 50px;
+}
+
 #logo-name {
 	margin-left: 20px;
 }
@@ -107,9 +112,21 @@ nav .input-field label i.material-icons-black{
 	background-color: #009688;
 }
 
+.package-on-board-accepted {
+	width: 30px;
+}
+
+#want-to-transport-page-content,
+#want-to-send-page-content {
+	margin-top: 50px;
+}
+
 @media only screen and (max-width : 992px) {
 	#content-wrapper{
 		padding-left: 0px;
 	}
 }
 
+#slots-available {
+	margin: 35px 0 0 44px;
+}

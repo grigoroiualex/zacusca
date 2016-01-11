@@ -10,7 +10,7 @@
 
 					<!-- /.navbar-header -->
 
-					<ul class="right hide-on-med-and-down">
+					<ul class="right">
 						<li class="waves-effect page-tools">
 							<span id="refresh-content-button">
 								<i class="material-icons">refresh</i>
@@ -99,7 +99,7 @@
 	<script type="text/template" id="user-info-template">
 	<div>Bun venit,</div>
 	<div>
-		<span>{{ rc.firstName + ' ' + rc.lastName }}</span>
+		<span><@=firstName + ' ' + lastName@></span>
 	</div>
 	</script>
 
@@ -112,29 +112,30 @@
 	<div class="col s12 package-item">
 		<div class="card">
 			<div class="card-content">
-				<span class="card-title">{{ rc.name }}</span>
+				<span class="card-title"><@=name@></span>
 				<div class="package-item-info collection">
 					<div class="package-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content">{{ rc.source }}</span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</div>
 					<div class="package-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content">{{ rc.destination }}</span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</div>
 					<div class="package-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content">{{ rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
+							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 				</div>
 				<div class="available-transports-wrapper">
-					<ul class="available-transports collapsible popout" data-collapsible="accordion">
+					<span>Transporturi disponibile:</span>
+					<ul id="available-transports-for-<@=objectId@>" class="collapsible popout" data-collapsible="accordion">
 					</ul>
 				</div>
 			</div>
@@ -143,9 +144,16 @@
 	</script>
 
 	<script type="text/template" id="package-item-available-transport-template">
-	<li>
+	<li class="package-item-available-transport-item">
 		<div class="collapsible-header">
-			{{ rc.username }}
+			<span class="available-transport-accepted">
+			<@if (state === 'pending') {@>
+				<i class="material-icons">done</i>
+			<@} else if (state === 'accepted') {@>
+				<i class="material-icons">done_all</i>
+			<@}@>
+			</span>
+			<span><@=username@></span>
 		</div>
 		<div class="collapsible-body">
 			<div class="available-transport-wrapper">
@@ -153,21 +161,36 @@
 					<li class="available-transport-email collection-item">
 						<div>
 							<span>Email:</span>
-							<span class="secondary-content">{{ rc.email }}</span>
+							<span class="secondary-content"><@=email@></span>
+						</div>
+					</li>
+					<li class="available-transport-telephone collection-item">
+						<div>
+							<span>Telefon:</span>
+							<span class="secondary-content"><@=telephone@></span>
 						</div>
 					</li>
 					<li class="available-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content">{{ rc.source }}</span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</li>
-					<li class="available-item-source collection-item">
+					<li class="available-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content">{{ rc.destination }}</span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</li>
+					<@if (state === 'not-joined') {@>
+					<li class="available-item-join-button collection-item center">
+						<div>
+							<button data-package="<@=packageId@>" data-transport="<@=transportId@>" class="join btn waves-effect waves-light" type="button">
+								Join
+							</button>
+						</div>
+					</li>
+					<@}@>
 				</ul>
 			</div>
 		</div>
@@ -187,32 +210,151 @@
 					<div class="transport-item-source collection-item">
 						<div>
 							<span>Sursă:</span>
-							<span class="secondary-content">{{ rc.source }}</span>
+							<span class="secondary-content"><@=source@></span>
 						</div>
 					</div>
 					<div class="transport-item-destination collection-item">
 						<div>
 							<span>Destinație:</span>
-							<span class="secondary-content">{{ rc.destination }}</span>
+							<span class="secondary-content"><@=destination@></span>
 						</div>
 					</div>
 					<div class="transport-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content">{{ rc.date.getDate() + '.' + rc.date.getMonth() + '.' + rc.date.getFullYear() }}</span>
+							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 					<div class="transport-item-available-slots collection-item">
 						<div>
-							<span>Mai pot lua:</span>
-							<span class="secondary-content">{{ (rc.availableSlots == 1) ? (rc.availableSlots + ' pachet') : (rc.availableSlots + ' pachete') }}</span>
+							<span>Mai este loc pentru:</span>
+							<span class="secondary-content"><@=(slotsAvailable == 1) ? (slotsAvailable + ' pachet') : (slotsAvailable + ' pachete')@></span>
 						</div>
 					</div>
 				</div>
 				<div class="packages-on-board-wrapper">
-					<ul class="packages-on-board collapsible popout" data-collapsible="accordion">
+					<ul id="packages-on-board-for-<@=objectId@>" class="packages-on-board collapsible popout" data-collapsible="accordion">
 					</ul>
 				</div>
+			</div>
+		</div>
+	</div>
+	</script>
+	<script type="text/template" id="package-on-board-template">
+	<li class="transport-item-package-on-board-item">
+		<div class="collapsible-header">
+			<span class="package-on-board-accepted">
+			<@if (state === 'accepted') {@>
+				<i class="material-icons">done</i>
+			<@}@>
+			</span>
+			<span><@=username@></span>
+		</div>
+		<div class="collapsible-body">
+			<div class="package-on-board-wrapper">
+				<ul class="collection">
+					<li class="available-transport-email collection-item">
+						<div>
+							<span>Email:</span>
+							<span class="secondary-content"><@=email@></span>
+						</div>
+					</li>
+					<li class="available-transport-telephone collection-item">
+						<div>
+							<span>Telefon:</span>
+							<span class="secondary-content"><@=telephone@></span>
+						</div>
+					</li>
+					<li class="package-on-board-source collection-item">
+						<div>
+							<span>Sursă:</span>
+							<span class="secondary-content"><@=source@></span>
+						</div>
+					</li>
+					<li class="available-item-destination collection-item">
+						<div>
+							<span>Destinație:</span>
+							<span class="secondary-content"><@=destination@></span>
+						</div>
+					</li>
+					<@if (state === 'pending') {@>
+					<li class="packages-on-board-accept-button collection-item center">
+						<button data-package="<@=packageId@>" data-transport="<@=transportId@>" class="accept btn waves-effect waves-light" type="button">
+							Accept
+						</button>
+					</li>
+					<@}@>
+				</ul>
+			</div>
+		</div>
+	</li>
+	</script>
+	<script type="text/template" id="want-to-send-page-content-template">
+	<div id="want-to-send-page-content">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<label class="active">Dată</label>
+				<input id="date" class="datepicker" type="date">
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">label</i>
+				<input id="name" class="validate" type="text">
+				<label for="name">Nume pentru pachet</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="source" class="validate" type="text">
+				<label for="source">Oraș sursă</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="destination" class="validate" type="text">
+				<label for="destination">Oraș destinație</label>
+			</div>
+		</div>
+		<div class="row center">
+			<div class="col s12">
+				<button id="want-to-send-button" class="btn waves-effect waves-light" type="button">
+					Adaugă pachet
+				</button>
+			</div>
+		</div>
+	</div>
+	</script>
+	<script type="text/template" id="want-to-transport-page-content-template">
+	<div id="want-to-transport-page-content">
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">schedule</i>
+				<label class="active">Dată</label>
+				<input id="date" class="datepicker" type="date">
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">work</i>
+				<label class="active">Locuri disponibile</label>
+				<div id="slots-available"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="source" class="validate" type="text">
+				<label for="source">Oraș sursă</label>
+			</div>
+			<div class="input-field col s12 m6">
+				<i class="material-icons prefix">location_on</i>
+				<input id="destination" class="validate" type="text">
+				<label for="destination">Oraș destinație</label>
+			</div>
+		</div>
+		<div class="row center">
+			<div class="col s12">
+				<button id="want-to-transport-button" class="btn waves-effect waves-light" type="button">
+					Adaugă transport
+				</button>
 			</div>
 		</div>
 	</div>

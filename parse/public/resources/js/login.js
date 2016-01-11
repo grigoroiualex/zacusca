@@ -1,8 +1,12 @@
 $(function() {
 	if (Parse.User.current()) {
 		navigateTo('profilul-meu');
+	} else {
+		loadLoginPage();
 	}
+});
 
+function loadLoginPage() {
 	$('#signup-button').click(function() {
 		var firstname = $('#first-name').val();
 		var lastname = $('#last-name').val();
@@ -82,4 +86,4 @@ $(function() {
 			$('#login-form').slideToggle(300, 'linear');
 		});
 	});
-});
+}

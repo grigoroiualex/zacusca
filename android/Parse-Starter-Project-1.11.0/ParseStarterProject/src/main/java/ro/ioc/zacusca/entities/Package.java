@@ -6,13 +6,33 @@ public class Package {
     private String source;
     private String destination;
     private String name;
-    private Date date;
+    private String date;
+    private String state;
+    private String objectId;
 
-    public Package(String source, String destination, String name, Date date) {
+    public Package(String source, String destination, String name, String date, String state, String objectId) {
         this.source = source;
         this.destination = destination;
         this.name = name;
         this.date = date;
+        this.state = state;
+        this.objectId = objectId;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 
     public String getSource() {
@@ -39,11 +59,11 @@ public class Package {
         this.name = name;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

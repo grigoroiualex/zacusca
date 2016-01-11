@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_gravity="center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="10dp"
+        android:layout_weight="0.06">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:id="@+id/text_view_label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="10dp"
+                android:text="Nume: "
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/text_view_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="21dp"
+                android:layout_alignParentTop="true"
+                android:paddingTop="10dp"
+                android:layout_toRightOf="@id/text_view_label_name"/>
+
+            <TextView
+                android:id="@+id/text_view_label_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_label_name"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Sursa: "
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/text_view_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_view_label_name"
+                android:layout_toRightOf="@id/text_view_label_source"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/text_view_label_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/text_view_label_source"
+                android:gravity="center"
+                android:text="Destinatie: "
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/text_view_destination"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:layout_below="@id/text_view_label_source"
+                android:layout_toRightOf="@id/text_view_label_destination"
+                android:text="-"
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/text_view_label_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/text_view_label_destination"
+                android:gravity="center"
+                android:text="Data: "
+                android:textSize="22dp" />
+
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/text_view_label_destination"
+                android:layout_toRightOf="@id/text_view_label_date"
+                android:gravity="center"
+                android:text="-"
+                android:textSize="22dp" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout><!-- From: file:/C:/Users/drago/AndroidStudioProjects/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/src/main/res/layout/card_view_row_package.xml -->

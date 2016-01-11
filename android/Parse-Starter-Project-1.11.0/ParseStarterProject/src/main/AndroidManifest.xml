@@ -10,6 +10,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.parse.starter" >
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -25,6 +27,12 @@
         <meta-data
             android:name="com.parse.CLIENT_KEY"
             android:value="@string/parse_client_key" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity android:name="ro.ioc.zacusca.activities.LogInActivity" >
         </activity>
@@ -49,6 +57,31 @@
         <activity android:name="ro.ioc.zacusca.activities.RegisterTransportActivity" >
         </activity>
         <activity android:name="ro.ioc.zacusca.activities.MyPackagesActivity" >
+        </activity>
+        <activity android:name="ro.ioc.zacusca.activities.MyTransportsActivity" >
+        </activity>
+        <activity android:name="ro.ioc.zacusca.activities.ShowPackageActivity" >
+        </activity>
+        <activity android:name="ro.ioc.zacusca.activities.ShowTransportActivity" >
+        </activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+
+
+        <activity
+            android:name="ro.ioc.zacusca.activities.MapsActivity"
+            android:label="@string/title_activity_maps" >
         </activity>
     </application>
 

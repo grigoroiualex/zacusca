@@ -50,6 +50,7 @@ public class AddPackageActivity extends AppCompatActivity {
                 pack.put("source", source.getText().toString());
                 pack.put("destination", destination.getText().toString());
                 pack.put("date", package_date);
+                pack.put("state", "not-joined");
 
                 ParseUser user = ParseUser.getCurrentUser();
                 if (user != null) {

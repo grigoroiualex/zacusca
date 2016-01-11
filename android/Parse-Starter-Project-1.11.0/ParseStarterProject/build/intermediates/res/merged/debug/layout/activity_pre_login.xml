@@ -16,6 +16,7 @@
         android:src="@mipmap/zacusca" />
 
     <LinearLayout
+        android:id="@+id/ll_buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="30dp"
@@ -44,9 +45,15 @@
 
     </LinearLayout>
 
-
-
-
+    <Button
+        android:id="@+id/button_fb_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ll_buttons"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:text="Login with Facebook"
+        android:textSize="40px" />
 
 </RelativeLayout>
 <!-- From: file:/C:/Users/drago/AndroidStudioProjects/zacusca/android/Parse-Starter-Project-1.11.0/ParseStarterProject/src/main/res/layout/activity_pre_login.xml -->

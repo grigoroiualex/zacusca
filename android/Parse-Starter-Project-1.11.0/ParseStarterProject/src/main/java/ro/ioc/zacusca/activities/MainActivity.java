@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,11 +19,35 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.parse.FunctionCallback;
+import com.parse.ParseCloud;
+import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
 import com.parse.starter.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import ro.ioc.zacusca.adapters.MyFriendsRecyclerViewAdapter;
+import ro.ioc.zacusca.adapters.MyUserAndPackageRecyclerViewAdapter;
+import ro.ioc.zacusca.entities.FriendAndTransports;
+import ro.ioc.zacusca.entities.Transport;
+import ro.ioc.zacusca.entities.UserAndPackage;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +55,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -64,6 +81,74 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new MyFriendsRecyclerViewAdapter(new ArrayList<FriendAndTransports>());
+        mRecyclerView.setAdapter(mAdapter);
+
+        if (ParseFacebookUtils.isLinked(user)) {
+
+
+            getDataForFbUsers();
+        }
+    }
+
+    private void getDataForFbUsers() {
+        GraphRequest friendsRequest = GraphRequest.newMyFriendsRequest(AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONArrayCallback() {
+                    @Override
+                    public void onCompleted(JSONArray objects, GraphResponse response) {
+                        for (int i = 0; i < objects.length(); ++i) {
+                            try {
+                                String userName = objects.getJSONObject(i).getString("name");
+                                String facebookId = objects.getJSONObject(i).getString("id");
+
+                                final FriendAndTransports friendAndTransports = new FriendAndTransports(userName);
+
+                                HashMap<String, String> params = new HashMap<String, String>();
+                                params.put("facebookId", facebookId);
+                                ParseCloud.callFunctionInBackground("getTransportsByFbId", params, new FunctionCallback<Object>() {
+                                    @Override
+                                    public void done(Object object, ParseException e) {
+                                        if (e == null) {
+                                            Log.d("DEBUG", "obj response: " + object.toString());
+                                            try {
+                                                JSONArray jArray = new JSONArray(object.toString());
+                                                for (int i = 0; i < jArray.length(); ++i) {
+                                                    JSONObject jObj = jArray.getJSONObject(i);
+                                                    String objectId = jObj.getString("objectId");
+                                                    String source = jObj.getString("source");
+                                                    String destination = jObj.getString("destination");
+                                                    Integer slotsAvailable = Integer.parseInt(jObj.getString("slotsAvailable"));
+                                                    String date = jObj.getString("date");
+                                                    date = date.substring(0, date.indexOf("T"));
+
+                                                    friendAndTransports.addTransport(new Transport(source, destination, date, slotsAvailable, objectId));
+                                                }
+                                                if (jArray.length() > 0) {
+                                                    ((MyFriendsRecyclerViewAdapter) mAdapter).addItem(friendAndTransports, 0);
+                                                    mAdapter.notifyDataSetChanged();
+                                                }
+                                            } catch (JSONException e1) {
+                                                e1.printStackTrace();
+                                            }
+                                        }
+                                        else {
+                                            Log.d("DEBUG", "getTransportsByFbId: " + e.getMessage());
+                                        }
+                                    }
+                                });
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        Log.d("DEBUG", objects.length() + " " + objects.toString());
+                    }
+                });
+        friendsRequest.executeAsync();
     }
 
     @Override
@@ -110,6 +195,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.my_transports) { // handle my transports
             Toast.makeText(this, "Transporturile mele", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(MainActivity.this, MyTransportsActivity.class);
+            startActivity(i);
         } else if (id == R.id.send_pack) { // send a pack
             Toast.makeText(this, "Vreau să trimit pachet", Toast.LENGTH_LONG).show();
             Intent i = new Intent(MainActivity.this, AddPackageActivity.class);

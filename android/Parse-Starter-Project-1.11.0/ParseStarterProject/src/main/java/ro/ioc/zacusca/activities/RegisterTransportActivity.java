@@ -47,7 +47,7 @@ public class RegisterTransportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ParseObject pack = new ParseObject("Transport");
-                pack.put("slots_available", number.getText().toString());
+                pack.put("slots_available", Integer.parseInt(number.getText().toString()));
                 pack.put("source", source.getText().toString());
                 pack.put("destination", destination.getText().toString());
                 pack.put("date", package_date);

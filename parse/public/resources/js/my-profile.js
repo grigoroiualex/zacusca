@@ -312,7 +312,7 @@ function renderWantToTransportForm() {
 
 	var slider = document.getElementById('slots-available');
 	noUiSlider.create(slider, {
-		start:		0,
+		start:		1,
 		connect:	'lower',
 		step:		1,
 		range: {
@@ -327,7 +327,8 @@ function renderWantToTransportForm() {
 	$('#want-to-transport-button').on('click', function() {
 		$(this).addClass('disable');
 
-		//var slotsAvailable = $('#slots-available').val();
+		var slotsAvailable = parseInt(slider.noUiSlider.get());
+		console.log(slotsAvailable);
 		var date = $('#date').val();
 		var source = $('#source').val();
 		var destination = $('#destination').val();
@@ -349,21 +350,24 @@ function renderWantToTransportForm() {
 			date:			date,
 			source:			source,
 			destination:		destination,
-			slots_available:	3, //slotsAvailable,
+			slots_available:	slotsAvailable,
 			accepted_packages:	[],
 			pending_packages:	[],
-			user:			Parse.User.current()
+			user:			Parse.User.current(),
+			lat:			'',
+			long:			''
 		}, {
 			success: function(trans) {
 				Materialize.toast('Transport adăugat cu succes', 2000);
 				$(this).toggleClass('disable');
-				//$('#slots-available').val('');
-				$('#date').val('');
-				$('#source').val('');
-				$('#destination').val('');
+				slider.noUiSlider.set(0);
+				$('#date').val('').siblings('label, i').removeClass('active').removeClass('valid');
+				$('#source').val('').siblings('label, i').removeClass('active').removeClass('valid');
+				$('#destination').val('').siblings('label, i').removeClass('active').removeClass('valid');
 			},
 			error: function(error) {
 				Materialize.toast('Transportul nu a putut fi adăugat', 2000);
+				console.log(error);
 			}
 		});
 	});

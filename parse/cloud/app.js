@@ -174,10 +174,10 @@ function setUserInfoForItem(user, item) {
 			item.userEmail = user.get('email');
 			item.userTelephone = user.get('telephone');
 
-			promise.resolve(item);
+			return promise.resolve(item);
 		},
 		error: function(error) {
-			promise.reject(error);
+			return promise.reject(error);
 		}
 	});
 

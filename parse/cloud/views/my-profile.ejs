@@ -134,7 +134,7 @@
 					<div class="package-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content"><@=(date.toLocaleString()).split(',')[0]@></span>
+							<span class="secondary-content"><@=date.getDate() + '.' + formatMonth(date.getMonth() + 1) + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 					<@if (state === 'accepted') {@>
@@ -237,7 +237,7 @@
 					<div class="transport-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content"><@=(date.toLocaleString()).split(',')[0]@></span>
+							<span class="secondary-content"><@=date.getDate() + '.' + formatMonth(date.getMonth() + 1) + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
 					<div class="transport-item-available-slots collection-item">

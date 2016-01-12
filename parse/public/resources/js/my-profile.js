@@ -443,3 +443,7 @@ function showPackageOnMap(packageId, packageName) {
 		}
 	});
 }
+
+function formatMonth(month) {
+	return month < 10 ? '0' + month : month;
+}

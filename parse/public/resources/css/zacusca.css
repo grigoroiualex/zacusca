@@ -139,3 +139,7 @@ nav .input-field label i.material-icons-black{
 #map {
 	height: 85%;
 }
+
+.package-item-current-location {
+	display: none;
+}

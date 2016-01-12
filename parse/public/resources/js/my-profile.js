@@ -88,7 +88,21 @@ function renderMyPackages(user) {
 					packageItemTemplate(pkg)
 				);
 
-				$('#see-' + pkg.objectId + '-on-map').on('click', function() {
+				if (pkg.state === 'accepted') {
+					Parse.Cloud.run('getCoordinatesForPackage', { packageId: pkg.objectId }, {
+						success: function(coordinates) {
+							if (coordinates.lat !== '' && coordinates.lng !== '') {
+								$('#show-' + pkg.objectId + '-on-map').parents('.package-item-current-location').show();
+							}
+						},
+						error: function(error) {
+							console.log('Error retrieving coordinates for package');
+							console.log(error);
+						}
+					});
+				}
+
+				$('#show-' + pkg.objectId + '-on-map').on('click', function() {
 					showPackageOnMap(pkg.objectId, pkg.name);
 				});
 
@@ -350,7 +364,6 @@ function renderWantToTransportForm() {
 		var trans = new TransObj();
 
 		trans.save({
-			name:			name,
 			date:			date,
 			source:			source,
 			destination:		destination,
@@ -359,15 +372,15 @@ function renderWantToTransportForm() {
 			pending_packages:	[],
 			user:			Parse.User.current(),
 			lat:			'',
-			long:			''
+			lng:			''
 		}, {
 			success: function(trans) {
 				Materialize.toast('Transport adăugat cu succes', 2000);
 				$(this).toggleClass('disable');
 				slider.noUiSlider.set(0);
-				$('#date').val('').siblings('label, i').removeClass('active').removeClass('valid');
-				$('#source').val('').siblings('label, i').removeClass('active').removeClass('valid');
-				$('#destination').val('').siblings('label, i').removeClass('active').removeClass('valid');
+				$('#date').val('').siblings('label, i').removeClass('active');
+				$('#source').val('').removeClass('valid').siblings('label, i').removeClass('active');
+				$('#destination').val('').removeClass('valid').siblings('label, i').removeClass('active');
 			},
 			error: function(error) {
 				Materialize.toast('Transportul nu a putut fi adăugat', 2000);

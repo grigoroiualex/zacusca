@@ -421,14 +421,16 @@ function showPackageOnMap(packageId, packageName) {
 
 			var map = new google.maps.Map(document.getElementById('map'), {
 				center: position,
-				zoom: 8
+				zoom: 12
 			});
 
+			var jarMarkerImg = '/resources/img/borcan-zacusca-raureni-marker.png';
 			var marker = new google.maps.Marker({
 				position: position,
 				map: map,
 				animation: google.maps.Animation.DROP,
-				title: packageName
+				title: packageName,
+				icon: jarMarkerImg
 			});
 
 			marker.setMap(map);

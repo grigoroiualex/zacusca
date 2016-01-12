@@ -346,7 +346,6 @@ function renderWantToTransportForm() {
 		$(this).addClass('disable');
 
 		var slotsAvailable = parseInt(slider.noUiSlider.get());
-		console.log(slotsAvailable);
 		var date = $('#date').val();
 		var source = $('#source').val();
 		var destination = $('#destination').val();

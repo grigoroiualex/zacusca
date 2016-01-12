@@ -6,7 +6,7 @@
 			<nav class=" teal accent-4" id="navbar-top-wrapper">
 				<div class="nav-wrapper">
 					<a href="#" data-activates="side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
-					<span>Zacusca</span>
+					<span id="page-title">Zacusca</span>
 
 					<!-- /.navbar-header -->
 
@@ -46,8 +46,12 @@
 
 	<div id="content-wrapper" class="container">
 	</div>
+	<div id="page-logo-wrapper" class="center">
+		<img id="page-logo" src="/resources/img/zacusca-logo.png" alt="ZACUSCA">
+	</div>
 
-	<div id="loading-circle-template" class="center">
+	<script type="text/template" id="loading-circle-template">
+	<div id="loading-circle" class="center">
 		<div class="preloader-wrapper huge active">
 			<div class="spinner-layer spinner-blue">
 				<div class="circle-clipper left">
@@ -95,6 +99,7 @@
 			</div>
 		</div>
 	</div>
+	</script>
 
 	<script type="text/template" id="user-info-template">
 	<div>Bun venit,</div>
@@ -232,7 +237,7 @@
 					<div class="transport-item-day collection-item">
 						<div>
 							<span>Dată:</span>
-							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
+							<span class="secondary-content"><@=(date.toLocaleString()).split(',')[0]@></span>
 						</div>
 					</div>
 					<div class="transport-item-available-slots collection-item">

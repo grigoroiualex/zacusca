@@ -122,12 +122,6 @@ nav .input-field label i.material-icons-black{
 	margin-top: 50px;
 }
 
-@media only screen and (max-width : 992px) {
-	#content-wrapper{
-		padding-left: 0px;
-	}
-}
-
 #slots-available {
 	margin: 35px 0 0 44px;
 }
@@ -142,4 +136,37 @@ nav .input-field label i.material-icons-black{
 
 .package-item-current-location {
 	display: none;
+}
+
+#page-title {
+	padding-left: 30px;
+	font-size: 40px;
+}
+
+#page-logo-wrapper {
+	margin: 50px 0 15px 0;
+}
+
+#page-logo {
+	width: 37%;
+	margin-left: 240px;
+}
+
+.button-collapse > i {
+	margin-left: 20px;
+}
+
+@media only screen and (max-width : 992px) {
+	#content-wrapper {
+		padding-left: 0;
+	}
+
+	#page-logo {
+		margin-left: 0;
+		width: 65%
+	}
+
+	.page-tools > span > i {
+		padding: 18px 17px;
+	}
 }

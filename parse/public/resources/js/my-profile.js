@@ -276,6 +276,7 @@ function renderWantToSendForm() {
 		}
 
 		date = new Date(date);
+		date.setHours(12);
 
 		var PkgObj = Parse.Object.extend('Package');
 		var pkg = new PkgObj();
@@ -291,10 +292,10 @@ function renderWantToSendForm() {
 			success: function(pkg) {
 				Materialize.toast('Pachet adăugat cu succes', 2000);
 				$(this).toggleClass('disable');
-				$('#name').val('');
-				$('#date').val('');
-				$('#source').val('');
-				$('#destination').val('');
+				$('#name').val('').siblings('label, i').removeClass('active');
+				$('#date').val('').siblings('label, i').removeClass('active');
+				$('#source').val('').siblings('label, i').removeClass('active');
+				$('#destination').val('').siblings('label, i').removeClass('active');
 			},
 			error: function(error) {
 				Materialize.toast('Pachetul nu a putut fi adăugat', 2000);
@@ -358,6 +359,7 @@ function renderWantToTransportForm() {
 		}
 
 		date = new Date(date);
+		date.setHours(12);
 
 		var TransObj = Parse.Object.extend('Transport');
 		var trans = new TransObj();
@@ -377,7 +379,7 @@ function renderWantToTransportForm() {
 				Materialize.toast('Transport adăugat cu succes', 2000);
 				$(this).toggleClass('disable');
 				slider.noUiSlider.set(0);
-				$('#date').val('').siblings('label, i').removeClass('active');
+				$('#date').val('').removeClass('valid').siblings('label, i').removeClass('active');
 				$('#source').val('').removeClass('valid').siblings('label, i').removeClass('active');
 				$('#destination').val('').removeClass('valid').siblings('label, i').removeClass('active');
 			},

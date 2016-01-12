@@ -88,6 +88,10 @@ function renderMyPackages(user) {
 					packageItemTemplate(pkg)
 				);
 
+				$('#see-' + pkg.objectId + '-on-map').on('click', function() {
+					showPackageOnMap(pkg.objectId, pkg.name);
+				});
+
 				promises.push(
 					Parse.Cloud.run('getAvailableTransportsForPackage', { pkg: pkg }, {
 						success: function(transports) {
@@ -388,4 +392,41 @@ function processInput(items) {
 	});
 
 	return ks;
+}
+
+function showPackageOnMap(packageId, packageName) {
+	Parse.Cloud.run('getCoordinatesForPackage', { packageId: packageId }, {
+		success: function(coordinates) {
+			var position = { lat: parseInt(coordinates.lat), lng: parseInt(coordinates.lng) };
+			var mapTemplate = _.template(
+				$('#map-template').html()
+			);
+
+			$('#content-wrapper').html(
+				mapTemplate()
+			);
+
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: position,
+				zoom: 8
+			});
+
+			var marker = new google.maps.Marker({
+				position: position,
+				map: map,
+				animation: google.maps.Animation.DROP,
+				title: packageName
+			});
+
+			marker.setMap(map);
+
+			$('#leave-map-button').on('click', function() {
+				$('#refresh-content-button').trigger('click');
+			});
+		},
+		error: function(error) {
+			console.log("Map could not be loaded");
+			console.log(error);
+		}
+	});
 }

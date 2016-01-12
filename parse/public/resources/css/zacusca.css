@@ -104,8 +104,9 @@ nav .input-field label i.material-icons-black{
 	display: none;
 }
 
-.page-tools {
-	margin: 0 10px;
+.page-tools > span > i {
+	padding: 0 17px;
+
 }
 
 .aside-active {
@@ -129,4 +130,12 @@ nav .input-field label i.material-icons-black{
 
 #slots-available {
 	margin: 35px 0 0 44px;
+}
+
+.package-on-map {
+	cursor: pointer;
+}
+
+#map {
+	height: 85%;
 }

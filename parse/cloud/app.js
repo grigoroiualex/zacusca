@@ -21,7 +21,7 @@ app.locals._ = _;
 // path and HTTP verb using the Express routing API.
 app.get('/profilul-meu', function(req, res) {
 	app.locals.extraJSs.push(jsResourcesPath + 'my-profile.js');
-	app.locals.extraJSs.push('https://maps.googleapis.com/maps/api/js?key=AIzaSyDaHp5QjUTb2ve2hpdSNtp7gdLl3dd6QHg&callback=initMap');
+	app.locals.extraJSs.push('https://maps.googleapis.com/maps/api/js?key=AIzaSyDaHp5QjUTb2ve2hpdSNtp7gdLl3dd6QHg');
 
 	res.render('my-profile', {
 		title: titlePrefix + ' - Profilul meu'
@@ -443,7 +443,6 @@ Parse.Cloud.define('getCoordinatesForPackage', function(request, response) {
 	packageQuery.first().then(function(pkg) {
 		var transportQuery = new Parse.Query('Transport');
 
-		console.log(pkg.get('transport'));
 		transportQuery.equalTo('objectId', pkg.get('transport').id);
 		transportQuery.first().then(function(transport) {
 			var coordinates = {

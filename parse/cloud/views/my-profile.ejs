@@ -132,6 +132,14 @@
 							<span class="secondary-content"><@=date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear()@></span>
 						</div>
 					</div>
+					<@if (state === 'accepted') {@>
+					<li class="package-item-current-location collection-item">
+						<div>
+							<span>Locație curentă:</span>
+							<span id="see-<@=objectId@>-on-map" class="secondary-content package-on-map">Vezi pe hartă</span>
+						</div>
+					</li>
+					<@}@>
 				</div>
 				<div class="available-transports-wrapper">
 					<span>Transporturi disponibile:</span>
@@ -358,6 +366,14 @@
 					Adaugă transport
 				</button>
 			</div>
+		</div>
+	</div>
+	</script>
+	<script type="text/template" id="map-template">
+	<div class="card large">
+		<div id="map"></div>
+		<div class="card-action">
+			<button id="leave-map-button" type="button" class="btn waves-effect waves-light">Înapoi la pachete</button>
 		</div>
 	</div>
 	</script>

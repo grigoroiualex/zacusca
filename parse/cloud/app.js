@@ -29,7 +29,7 @@ app.get('/profilul-meu', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-	app.locals.extraJSs.push('login.js');
+	app.locals.extraJSs.push(jsResourcesPath + 'login.js');
 	res.render('login', {
 		title: titlePrefix
 	});

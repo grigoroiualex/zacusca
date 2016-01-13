@@ -219,31 +219,32 @@ function renderMyTransports(user) {
 			});
 
 			Parse.Promise.when(promises).then(function() {
-				$('.collapsible').collapsible();
-				$('.accept.btn').on('click', function() {
-					$(this).addClass('disabled');
-					Parse.Cloud.run('acceptJoin', {
-						pkgId:		$(this).data('package'),
-						transportId:	$(this).data('transport')
-					}, {
-						success: function(result) {
-							Materialize.toast('Pachet acceptat', 2000);
-						},
-						error: function(error) {
-							console.log('Could not accept join');
-						}
-					}).then(function() {
-						$(this).html(
-							'<i class="material-icons">done</i>'
-						);
-					});
-				});
 			});
 		},
 		error: function(error) {
 			console.log('Error: ' + error.code + ' ' + error.message);
 			console.log('Additional error info: ' + error.code + ' ' + error.message);
 		}
+	});
+
+	$('.collapsible').collapsible();
+	$('.accept.btn').on('click', function() {
+		$(this).addClass('disabled');
+		Parse.Cloud.run('acceptJoin', {
+			pkgId:		$(this).data('package'),
+			transportId:	$(this).data('transport')
+		}, {
+			success: function(result) {
+				Materialize.toast('Pachet acceptat', 2000);
+			},
+			error: function(error) {
+				console.log('Could not accept join');
+			}
+		}).then(function() {
+			$(this).html(
+				'<i class="material-icons">done</i>'
+			);
+		});
 	});
 }
 

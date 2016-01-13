@@ -121,7 +121,7 @@ function renderMyPackages(user) {
 										source:		transport.source,
 										destination:	transport.destination,
 										telephone:	transport.userTelephone,
-										state:		transport.state
+										state:		pkg.state
 									})
 								);
 							});
@@ -135,27 +135,28 @@ function renderMyPackages(user) {
 			});
 
 			Parse.Promise.when(promises).then(function() {
-				$('.collapsible').collapsible();
-				$('.join.btn').on('click', function() {
-					$(this).addClass('disabled');
-					Parse.Cloud.run('requestJoin', {
-						pkgId:		$(this).data('package'),
-						transportId:	$(this).data('transport')
-					}, {
-						success: function(result) {
-							Materialize.toast('Cerere trimisă', 2000);
-						},
-						error: function(error) {
-							console.log('Could not request join');
-						}
-					});
-				});
 			});
 		},
 		error: function(error) {
 			console.log('Error retrieving packages');
 			console.log('Additional error info: ' + error.code + ' ' + error.message);
 		}
+	});
+
+	$('.collapsible').collapsible();
+	$('.join.btn').on('click', function() {
+		$(this).addClass('disabled');
+		Parse.Cloud.run('requestJoin', {
+			pkgId:		$(this).data('package'),
+			transportId:	$(this).data('transport')
+		}, {
+			success: function(result) {
+				Materialize.toast('Cerere trimisă', 2000);
+			},
+			error: function(error) {
+				console.log('Could not request join');
+			}
+		});
 	});
 }
 

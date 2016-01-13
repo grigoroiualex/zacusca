@@ -411,7 +411,7 @@ function processInput(items) {
 function showPackageOnMap(packageId, packageName) {
 	Parse.Cloud.run('getCoordinatesForPackage', { packageId: packageId }, {
 		success: function(coordinates) {
-			var position = { lat: parseInt(coordinates.lat), lng: parseInt(coordinates.lng) };
+			var position = { lat: parseFloat(coordinates.lat), lng: parseFloat(coordinates.lng) };
 			var mapTemplate = _.template(
 				$('#map-template').html()
 			);
